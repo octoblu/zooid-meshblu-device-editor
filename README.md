@@ -10,9 +10,9 @@ $ npm install zooid-meshblu-device-editor
 
 ## Props
 
-### uuid  **required**
+### uuid (required)
 Meshblu device uuid
-### token **required**
+### token (required)
 Meshblu device token
 ### server
 Meshblu server url, default is ```meshblu.ocotblu.com```
