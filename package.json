@@ -1,6 +1,6 @@
 {
   "name": "zooid-meshblu-device-editor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React component for editing Meshblu devices.",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "env PORT=7002 node dev-server.js",
-    "lint": "eslint index.js"
+    "lint": "eslint index.js",
+    "test": "istanbul cover _mocha -- -R spec --require coffee-coverage/register-istanbul"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,9 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-0": "^6.5.0",
+    "chai": "^3.5.0",
+    "coffee-coverage": "^1.0.1",
+    "coffee-script": "^1.10.0",
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
     "eslint": "^2.2.0",
@@ -37,10 +41,15 @@
     "eslint-plugin-react": "^4.1.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.4",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
+    "mocha-istanbul": "^0.2.0",
     "postcss-loader": "^0.8.1",
     "postcss-scss": "^0.1.6",
     "precss": "^1.4.0",
     "rimraf": "^2.5.2",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
