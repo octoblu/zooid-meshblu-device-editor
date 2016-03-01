@@ -16,14 +16,10 @@ $ npm install zooid-meshblu-device-editor
 
 ### uuid (required)
 Meshblu device uuid
-### token (required)
-Meshblu device token
-### server
-Meshblu server url, default is ```meshblu.ocotblu.com```
-### port
-Meshblu server port, default is ```443```
-
-
+### meshbluConfig (object) (required)
+```js
+{ uuid: 'device-uuid', token: 'device-token', server: 'meshblu.octoblu.com', port: 443 }
+```
 
 ## Example
 
@@ -36,10 +32,13 @@ class Example extends Component {
   render() {
     return (
       <MeshbluDeviceEditor
-        uuid="YOUR-DEVICE-UUID"
-        token="YOUR-DEVICE-TOKEN"
-        server="meshblu.octoblu.com"
-        port="443"  
+        uuid="THE-DEVICE-UUID"
+        meshbluConfig={
+          uuid: 'AUTH-UUID',
+          token: 'AUTH-TOKEN',
+          server: 'meshblu.octoblu.com',
+          port: 443
+        }
       />
     )
   }

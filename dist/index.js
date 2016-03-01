@@ -1401,9 +1401,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      error: null
 	    }, _this.handleSubmit = function (_ref) {
 	      var formData = _ref.formData;
+	      var uuid = _this.props.uuid;
 	
-	      _this.conn.update({ options: formData }, function (data) {
-	        console.log('DEVICE UPDATED', data);
+	
+	      _this.setState({ loading: true });
+	
+	      _this.meshbluHttp.update(uuid, { options: formData }, function (error, data) {
+	        if (error) {
+	          console.log('Error updating device', error);
+	          _this.setState({
+	            error: error,
+	            loading: false
+	          });
+	          return;
+	        }
+	        console.log('Device updated', data);
 	      });
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
@@ -1415,43 +1427,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var _props = this.props;
 	      var uuid = _props.uuid;
-	      var token = _props.token;
-	      var server = _props.server;
-	      var port = _props.port;
+	      var meshbluConfig = _props.meshbluConfig;
 	
-	      var meshbluOptions = { uuid: uuid, token: token, server: server, port: port };
 	
 	      this.setState({ loading: true });
 	
-	      this.conn = meshblu.createConnection(meshbluOptions);
-	
-	      this.conn.on('ready', function (data) {
-	        console.log('DEVICE AUTHENTICATED', meshbluOptions);
-	
-	        _this2.conn.whoami({}, function (device) {
-	          console.log('DEVICE', device, _this2);
-	          var name = device.name;
-	          var optionsSchema = device.optionsSchema;
-	          var options = device.options;
-	
-	          optionsSchema.title = name;
+	      this.meshbluHttp = new MeshbluHttp(meshbluConfig);
+	      this.meshbluHttp.whoami(function (error, device) {
+	        if (error) {
+	          console.log('Error getting device', error);
 	          _this2.setState({
-	            device: device,
+	            error: error,
 	            loading: false
 	          });
-	        });
+	          return;
+	        }
+	        var name = device.name;
+	        var optionsSchema = device.optionsSchema;
+	        var options = device.options;
 	
-	        _this2.conn.on('disconnect', function (data) {
-	          console.log('DISCONNECTED FROM SKYNET');
-	        });
-	      });
-	
-	      this.conn.on('notReady', function (err, data) {
-	        console.log('DEVICE AUTHENTICATION FAILED', meshbluOptions);
-	        _this2.setState({
-	          error: new Error(err.message),
-	          loading: false
-	        });
+	        _this2.setState({ device: device, loading: false });
 	      });
 	    }
 	  }, {
@@ -1463,20 +1458,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var loading = _state.loading;
 	      var _props2 = this.props;
 	      var uuid = _props2.uuid;
-	      var token = _props2.token;
-	      var server = _props2.server;
-	      var port = _props2.port;
+	      var meshbluConfig = _props2.meshbluConfig;
 	
 	
 	      if (!uuid) return _react2.default.createElement(
 	        'div',
 	        null,
 	        'Device UUID is required'
-	      );
-	      if (!token) return _react2.default.createElement(
-	        'div',
-	        null,
-	        'Device Token is required'
 	      );
 	
 	      if (loading) return _react2.default.createElement(
@@ -1513,13 +1501,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	MeshbluDeviceEditor.propTypes = {
 	  uuid: _react.PropTypes.string.isRequired,
-	  token: _react.PropTypes.string.isRequired,
-	  server: _react.PropTypes.string,
-	  port: _react.PropTypes.number
+	  meshbluConfig: _react.PropTypes.shape({
+	    uuid: _react.PropTypes.string.isRequired,
+	    token: _react.PropTypes.string.isRequired,
+	    server: _react.PropTypes.string,
+	    port: _react.PropTypes.number
+	  })
 	};
 	MeshbluDeviceEditor.defaultProps = {
-	  server: 'meshblu.octoblu.com',
-	  port: 443
+	  meshbluConfig: {
+	    server: 'meshblu.octoblu.com',
+	    port: 443
+	  }
 	};
 	exports.default = MeshbluDeviceEditor;
 

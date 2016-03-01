@@ -10,63 +10,64 @@ export default class MeshbluDeviceEditor extends Component {
 
   static propTypes = {
     uuid: PropTypes.string.isRequired,
-    token: PropTypes.string.isRequired,
-    server: PropTypes.string,
-    port: PropTypes.number
+    meshbluConfig: PropTypes.shape({
+      uuid: PropTypes.string.isRequired,
+      token: PropTypes.string.isRequired,
+      server: PropTypes.string,
+      port: PropTypes.number
+    })
   }
 
   static defaultProps = {
-    server: 'meshblu.octoblu.com',
-    port: 443
+    meshbluConfig: {
+      server: 'meshblu.octoblu.com',
+      port: 443
+    }
   }
 
   componentDidMount() {
-    const { uuid, token, server, port } = this.props
-    const meshbluOptions = { uuid, token, server, port }
+    const { uuid, meshbluConfig } = this.props
 
     this.setState({ loading: true })
 
-    this.conn = meshblu.createConnection(meshbluOptions)
-
-    this.conn.on('ready', (data) => {
-      console.log('DEVICE AUTHENTICATED', meshbluOptions)
-
-      this.conn.whoami({}, (device) => {
-        console.log('DEVICE', device, this)
-        const { name, optionsSchema, options } = device
-        optionsSchema.title = name
+    this.meshbluHttp = new MeshbluHttp(meshbluConfig)
+    this.meshbluHttp.whoami((error, device) => {
+      if(error) {
+        console.log('Error getting device', error)
         this.setState({
-          device,
+          error: error,
           loading: false
         })
-      })
-
-      this.conn.on('disconnect', function(data){
-        console.log('DISCONNECTED FROM SKYNET');
-      })
-    })
-
-    this.conn.on('notReady', (err, data) => {
-      console.log('DEVICE AUTHENTICATION FAILED', meshbluOptions)
-      this.setState({
-        error: new Error(err.message),
-        loading: false
-      })
+        return
+      }
+      const { name, optionsSchema, options } = device
+      this.setState({device,loading: false})
     })
   }
 
   handleSubmit = ({ formData }) => {
-    this.conn.update({ options: formData }, (data) => {
-      console.log('DEVICE UPDATED', data)
+    const { uuid } = this.props
+
+    this.setState({ loading: true })
+
+    this.meshbluHttp.update(uuid, { options: formData }, (error, data) => {
+      if(error) {
+        console.log('Error updating device', error)
+        this.setState({
+          error: error,
+          loading: false
+        })
+        return
+      }
+      console.log('Device updated', data)
     })
   }
 
   render() {
     const { device, error, loading }    = this.state
-    const { uuid, token, server, port } = this.props
+    const { uuid, meshbluConfig } = this.props
 
     if (!uuid) return <div>Device UUID is required</div>
-    if (!token) return <div>Device Token is required</div>
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error.message}</div>
