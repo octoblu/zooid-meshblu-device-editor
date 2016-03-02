@@ -60,8 +60,8 @@ export default class MeshbluDeviceEditor extends Component {
         return
       }
       console.log('Device updated', data)
-      this.setState({ loading: false })
     })
+    this.setState({ loading: false })
   }
 
   render() {
