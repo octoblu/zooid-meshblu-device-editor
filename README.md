@@ -12,7 +12,7 @@ A React component for editing Meshblu devices
 $ npm install zooid-meshblu-device-editor
 ```
 
-Include meshbluHttp:
+Include meshblu-http in your index.html:
 ```html
 <script src="https://cdn.octoblu.com/js/browser-meshblu-http/v1.2.0/meshblu-http.bundle.js"></script>
 ```
