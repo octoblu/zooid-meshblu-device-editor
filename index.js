@@ -14,7 +14,7 @@ export default class MeshbluDeviceEditor extends Component {
       uuid: PropTypes.string.isRequired,
       token: PropTypes.string.isRequired,
       server: PropTypes.string,
-      port: PropTypes.number
+      port: PropTypes.string
     })
   }
 
@@ -60,6 +60,7 @@ export default class MeshbluDeviceEditor extends Component {
         return
       }
       console.log('Device updated', data)
+      this.setState({ loading: false })
     })
   }
 
