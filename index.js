@@ -31,7 +31,7 @@ export default class MeshbluDeviceEditor extends Component {
     this.setState({ loading: true })
 
     this.meshbluHttp = new MeshbluHttp(meshbluConfig)
-    this.meshbluHttp.whoami((error, device) => {
+    this.meshbluHttp.device(uuid, (error, device) => {
       if(error) {
         console.log('Error getting device', error)
         this.setState({
