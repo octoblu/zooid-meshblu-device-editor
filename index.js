@@ -14,7 +14,7 @@ export default class MeshbluDeviceEditor extends Component {
       uuid: PropTypes.string.isRequired,
       token: PropTypes.string.isRequired,
       server: PropTypes.string,
-      port: PropTypes.string
+      port: PropTypes.number
     })
   }
 
