@@ -1396,76 +1396,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(MeshbluDeviceEditor)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
-	      device: null,
-	      loading: false,
-	      error: null
-	    }, _this.handleSubmit = function (_ref) {
+	      device: null
+	    }, _this.handleOptionsChange = function (_ref) {
 	      var formData = _ref.formData;
-	      var uuid = _this.props.uuid;
+	      var onChange = _this.props.onChange;
 	
+	      onChange({ options: formData });
+	    }, _this.handleNameChange = function (event) {
+	      var onChange = _this.props.onChange;
 	
-	      _this.setState({ loading: true });
-	
-	      _this.meshbluHttp.update(uuid, { options: formData }, function (error, data) {
-	        if (error) {
-	          console.log('Error updating device', error);
-	          _this.setState({
-	            error: error,
-	            loading: false
-	          });
-	          return;
-	        }
-	        console.log('Device updated', data);
-	      });
+	      var name = event.target.value;
+	      onChange({ name: name });
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
 	  _createClass(MeshbluDeviceEditor, [{
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      var _props = this.props;
-	      var uuid = _props.uuid;
-	      var meshbluConfig = _props.meshbluConfig;
-	
-	
-	      this.setState({ loading: true });
-	
-	      this.meshbluHttp = new MeshbluHttp(meshbluConfig);
-	      this.meshbluHttp.whoami(function (error, device) {
-	        if (error) {
-	          console.log('Error getting device', error);
-	          _this2.setState({
-	            error: error,
-	            loading: false
-	          });
-	          return;
-	        }
-	        var name = device.name;
-	        var optionsSchema = device.optionsSchema;
-	        var options = device.options;
-	
-	        _this2.setState({ device: device, loading: false });
-	      });
-	    }
+	    value: function componentDidMount() {}
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _state = this.state;
-	      var device = _state.device;
 	      var error = _state.error;
 	      var loading = _state.loading;
-	      var _props2 = this.props;
-	      var uuid = _props2.uuid;
-	      var meshbluConfig = _props2.meshbluConfig;
+	      var device = this.props.device;
 	
-	
-	      if (!uuid) return _react2.default.createElement(
-	        'div',
-	        null,
-	        'Device UUID is required'
-	      );
 	
 	      if (loading) return _react2.default.createElement(
 	        'div',
@@ -1478,21 +1433,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	        error.message
 	      );
 	
-	      if (!device) return _react2.default.createElement(
-	        'div',
-	        null,
-	        'Device not found'
-	      );
-	
 	      var options = device.options;
 	      var optionsSchema = device.optionsSchema;
 	
 	
-	      return _react2.default.createElement(_reactJsonschemaForm2.default, {
-	        schema: optionsSchema,
-	        formData: options,
-	        onSubmit: this.handleSubmit
-	      });
+	      var schemaEditor = _react2.default.createElement('span', null);
+	      if (optionsSchema) {
+	        schemaEditor = _react2.default.createElement(_reactJsonschemaForm2.default, {
+	          schema: optionsSchema,
+	          formData: options,
+	          onSubmit: this.handleOptionsChange
+	        });
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'MeshbluDeviceEditor-form' },
+	          _react2.default.createElement(
+	            'label',
+	            { 'for': 'name', className: 'MeshbluDeviceEditor-label' },
+	            'Name:'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'MeshbluDeviceEditor-section' },
+	            _react2.default.createElement('input', { type: 'text', name: 'name', value: device.name, onChange: this.handleNameChange, className: 'MeshbluDeviceEditor-name' })
+	          )
+	        ),
+	        schemaEditor
+	      );
 	    }
 	  }]);
 	
@@ -1500,19 +1472,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react.Component);
 	
 	MeshbluDeviceEditor.propTypes = {
-	  uuid: _react.PropTypes.string.isRequired,
-	  meshbluConfig: _react.PropTypes.shape({
-	    uuid: _react.PropTypes.string.isRequired,
-	    token: _react.PropTypes.string.isRequired,
-	    server: _react.PropTypes.string,
-	    port: _react.PropTypes.number
-	  })
-	};
-	MeshbluDeviceEditor.defaultProps = {
-	  meshbluConfig: {
-	    server: 'meshblu.octoblu.com',
-	    port: 443
-	  }
+	  device: _react.PropTypes.object.isRequired,
+	  onChange: _react.PropTypes.func.isRequired
 	};
 	exports.default = MeshbluDeviceEditor;
 

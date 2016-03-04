@@ -12,19 +12,10 @@ A React component for editing Meshblu devices
 $ npm install zooid-meshblu-device-editor
 ```
 
-Include meshblu-http in your index.html:
-```html
-<script src="https://cdn.octoblu.com/js/browser-meshblu-http/v1.2.0/meshblu-http.bundle.js"></script>
-```
-
 ## Props
 
-### uuid (required)
-Meshblu device uuid
-### meshbluConfig (object) (required)
-```js
-{ uuid: 'device-uuid', token: 'device-token', server: 'meshblu.octoblu.com', port: 443 }
-```
+### device [object] (required)
+### onChange [func] (required)
 
 ## Example
 
@@ -34,16 +25,19 @@ import ReactDOM from 'react-dom'
 import MeshbluDeviceEditor from 'zooid-meshblu-device-editor'
 
 class Example extends Component {
+  handleChange = (properties) => {
+    let meshbluHttp = new MeshbluHttp(meshbluConfig)
+    meshbluHttp.update(device.uuid, properties, (error) => {
+      console.log('updated', {error})
+    })
+  }
   render() {
+    const {device} = this.state
+
     return (
       <MeshbluDeviceEditor
-        uuid="THE-DEVICE-UUID"
-        meshbluConfig={
-          uuid: 'AUTH-UUID',
-          token: 'AUTH-TOKEN',
-          server: 'meshblu.octoblu.com',
-          port: 443
-        }
+        device={device}
+        onChange={this.handleChange}
       />
     )
   }

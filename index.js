@@ -3,86 +3,54 @@ import ReactSchemaForm from 'react-jsonschema-form'
 
 export default class MeshbluDeviceEditor extends Component {
   state = {
-    device: null,
-    loading: false,
-    error: null,
+    device: null
   }
 
   static propTypes = {
-    uuid: PropTypes.string.isRequired,
-    meshbluConfig: PropTypes.shape({
-      uuid: PropTypes.string.isRequired,
-      token: PropTypes.string.isRequired,
-      server: PropTypes.string,
-      port: PropTypes.number
-    })
-  }
-
-  static defaultProps = {
-    meshbluConfig: {
-      server: 'meshblu.octoblu.com',
-      port: 443
-    }
+    device: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired
   }
 
   componentDidMount() {
-    const { uuid, meshbluConfig } = this.props
-
-    this.setState({ loading: true })
-
-    this.meshbluHttp = new MeshbluHttp(meshbluConfig)
-    this.meshbluHttp.device(uuid, (error, device) => {
-      if(error) {
-        console.log('Error getting device', error)
-        this.setState({
-          error: error,
-          loading: false
-        })
-        return
-      }
-      const { name, optionsSchema, options } = device
-      this.setState({device,loading: false})
-    })
   }
 
-  handleSubmit = ({ formData }) => {
-    const { uuid } = this.props
+  handleOptionsChange = ({ formData }) => {
+    const { onChange } = this.props
+    onChange({options: formData})
+  }
 
-    this.setState({ loading: true })
-
-    this.meshbluHttp.update(uuid, { options: formData }, (error, data) => {
-      if(error) {
-        console.log('Error updating device', error)
-        this.setState({
-          error: error,
-          loading: false
-        })
-        return
-      }
-      console.log('Device updated', data)
-    })
-    this.setState({ loading: false })
+  handleNameChange = (event) => {
+    const { onChange } = this.props
+    const name = event.target.value
+    onChange({name})
   }
 
   render() {
-    const { device, error, loading }    = this.state
-    const { uuid, meshbluConfig } = this.props
-
-    if (!uuid) return <div>Device UUID is required</div>
+    const { error, loading }    = this.state
+    const { device } = this.props
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error.message}</div>
 
-    if (!device) return <div>Device not found</div>
-
     const { options, optionsSchema } = device
 
-    return (
-      <ReactSchemaForm
+    let schemaEditor = <span></span>
+    if(optionsSchema) {
+      schemaEditor = <ReactSchemaForm
         schema={optionsSchema}
         formData={options}
-        onSubmit={this.handleSubmit}
+        onSubmit={this.handleOptionsChange}
       />
-    )
+    }
+
+    return <div>
+      <div className="MeshbluDeviceEditor-form">
+        <label for="name" className="MeshbluDeviceEditor-label">Name:</label>
+        <div className="MeshbluDeviceEditor-section">
+          <input type="text" name="name" value={device.name} onChange={this.handleNameChange} className="MeshbluDeviceEditor-name"/>
+        </div>
+      </div>
+      {schemaEditor}
+    </div>
   }
 }
