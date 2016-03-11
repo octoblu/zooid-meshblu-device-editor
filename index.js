@@ -2,8 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import ReactSchemaForm from 'react-jsonschema-form'
 
 export default class MeshbluDeviceEditor extends Component {
+
   state = {
-    device: null
+    name: '',
+    options: {},
+    optionsSchema: { type: 'object'}
   }
 
   static propTypes = {
@@ -12,27 +15,28 @@ export default class MeshbluDeviceEditor extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      name: this.props.device.name,
+      options: this.props.device.options,
+      optionsSchema: this.props.device.optionsSchema
+    })
   }
 
   handleOptionsChange = ({ formData }) => {
     const { onChange } = this.props
-    onChange({options: formData})
+    onChange({options: formData, name: this.state.name})
   }
 
   handleNameChange = (event) => {
-    const { onChange } = this.props
-    const name = event.target.value
-    onChange({name})
+    const name = event.target.value    
+    this.setState({name})
   }
 
   render() {
-    const { error, loading }    = this.state
-    const { device } = this.props
+    const { error, loading, name, options, optionsSchema }    = this.state
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error.message}</div>
-
-    const { options, optionsSchema } = device
 
     let schemaEditor = <span></span>
     if(optionsSchema) {
@@ -47,7 +51,7 @@ export default class MeshbluDeviceEditor extends Component {
       <div className="MeshbluDeviceEditor-form">
         <label for="name" className="MeshbluDeviceEditor-label">Name:</label>
         <div className="MeshbluDeviceEditor-section">
-          <input type="text" name="name" value={device.name} onChange={this.handleNameChange} className="MeshbluDeviceEditor-name"/>
+          <input type="text" name="name" value={name} onChange={this.handleNameChange} className="MeshbluDeviceEditor-name"/>
         </div>
       </div>
       {schemaEditor}
