@@ -7,14 +7,44 @@ class Example extends Component {
 
   componentDidMount = () => {
     var meshblu = new MeshbluHttp()
-    meshblu.register({
-      name: 'BEEZZZ',
-      optionsSchema: {
-        type: 'object',
-        properties: {
-          'buzz': {type: 'boolean'}
+    var meshbluDevice = {
+      "name": "whatever",
+      "meshblu": {
+        "schemas": {
+          "configure": [
+            {
+              	"title": "YoAge",
+              	"type": "object",
+              	"properties": {
+              		"firstName": {
+              			"type": "string"
+              		},
+              		"lastName": {
+              			"type": "string"
+              		}
+              	}
+            },
+            {
+                "title": "YoDeets",
+                "type": "object",
+                "properties": {
+                  "age": {
+                    "type": "integer",
+                    "title": "Age"
+                  },
+                  "bio": {
+                    "type": "string",
+                    "title": "Bio"
+                  }
+                }
+              }
+          ],
+          "message": []
         }
-      }},(error, device) => {
+      }
+    }
+    meshblu.register(meshbluDevice,(error, device) => {
+      console.log('registered', device);
       this.setState({device})
       this.meshblu = new MeshbluHttp(this.state.device)
     })
