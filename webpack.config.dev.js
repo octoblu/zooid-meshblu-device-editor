@@ -7,7 +7,7 @@ module.exports = {
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
     'webpack-hot-middleware/client',
-    './example'
+    './example/selection.js'
   ],
   output: {
     path: path.join(__dirname, 'example'),
@@ -33,6 +33,10 @@ module.exports = {
       {
         test:   /\.css$/,
         loader: "style-loader!css-loader!postcss-loader"
+      },
+      {
+        test: /\.json$/,
+        loader: "json-loader"
       },
       {
         test: /\.jpg$/,

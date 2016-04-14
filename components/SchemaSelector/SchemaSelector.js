@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 
 const propTypes = {
   titles: PropTypes.array.isRequired,
-  selectedOption: PropTypes.string,
+  selectedTitle: PropTypes.string,
   onChange: PropTypes.function
 }
 
@@ -13,7 +13,7 @@ const SchemaSelector = ({titles, selectedTitle, onChange}) => {
   })
 
   return (
-    <select selected={selectedTitle} onChange={onChange}>
+    <select defaultValue={selectedTitle} onChange={onChange}>
       {options}
     </select>
   )
