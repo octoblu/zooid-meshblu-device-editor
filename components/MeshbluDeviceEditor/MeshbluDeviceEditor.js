@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { Component, PropTypes } from 'react'
 import ReactSchemaForm from 'react-jsonschema-form'
 
-import SchemaSelector from './components/SchemaSelector/SchemaSelector'
+import SchemaSelector from '../SchemaSelector/SchemaSelector'
 
 export default class MeshbluDeviceEditor extends Component {
   state = {

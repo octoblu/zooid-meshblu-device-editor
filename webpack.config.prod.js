@@ -1,6 +1,6 @@
-var path          = require('path')
-var webpack       = require('webpack')
-var autoprefixer  = require('autoprefixer')
+var path         = require('path')
+var webpack      = require('webpack')
+var autoprefixer = require('autoprefixer')
 
 module.exports = {
   devtool: 'source-map',
@@ -22,6 +22,7 @@ module.exports = {
     }
   },
   plugins: [
+    new webpack.IgnorePlugin(/^(buffertools)$/), // unwanted "deeper" dependency
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
