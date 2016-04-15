@@ -8,6 +8,7 @@ export default class MeshbluDeviceEditor extends Component {
   state = {
     name: '',
     options: {},
+    messageForm: {},
     optionsSchema: { type: 'object'},
     schemas: [],
     selectedSchema: {}
@@ -21,13 +22,14 @@ export default class MeshbluDeviceEditor extends Component {
   componentDidMount() {
     console.log('mounted device', this.props.device)
     const { name, options, optionsSchema } = this.props.device
-    const { configure } = this.props.device.meshblu.schemas
+    const { configure } = this.props.device.schemas
     const titles = _.map(configure, 'title')
     const selectedSchema = _.head(configure)
 
     this.setState({
       name: name,
       options: options,
+      messageForm: {},
       optionsSchema: optionsSchema,
       titles: titles,
       configure: configure,
@@ -58,7 +60,7 @@ export default class MeshbluDeviceEditor extends Component {
   }
 
   render() {
-    const { error, loading, name, options, optionsSchema, titles } = this.state
+    const { error, loading, name, options, optionsSchema, titles, messageForm } = this.state
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error.message}</div>
 
@@ -66,7 +68,7 @@ export default class MeshbluDeviceEditor extends Component {
     if(this.state.selectedSchema) {
       schemaEditor = <ReactSchemaForm
         schema={this.state.selectedSchema}
-        formData={options}
+        formData={messageForm}
         onSubmit={this.handleOptionsChange}
       />
     }
@@ -92,7 +94,7 @@ export default class MeshbluDeviceEditor extends Component {
         selectedTitle="hello"
         onChange={this.handleSchemaSelection}
       />
-      
+
       {schemaEditor}
     </div>
   }
