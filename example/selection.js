@@ -6,12 +6,10 @@ import MeshbluDeviceEditor from '../index'
 class ExampleSelection extends Component {
   state = {}
 
-  componentDidMount = () => {
-    const uuid = "4c868a60-36d4-471c-86c8-5db5818e3d70"
-    const token = "9a85185727f7c1046ff18faea071fb6e64fcaf91"
-
-    // const uuid  = "510bc4cc-dd82-4d4a-9261-bdd242805039"
-    // const token = "10ccaff9b277b34e4ee9f1e9fecced45639fc266"
+  constructor(props) {
+    super(props)
+    const uuid = "66f0aa2b-e177-43f0-a9d6-782033ebe806"
+    const token = "9542c440298850a33f6353e9d96a68a31a8ce95a"
 
     const options = {
       uuid,
@@ -20,18 +18,21 @@ class ExampleSelection extends Component {
       port: 443
     }
 
-    const meshblu = new MeshbluHttp(options)
+    this.meshblu = new MeshbluHttp(options)
+  }
 
-    meshblu.whoami((error, device) => {
+  componentDidMount = () => {
+    this.meshblu.whoami((error, device) => {
       console.log("whoami", device)
       this.setState({device})
     })
   }
 
   handleChange = ({name, options}) => {
-    console.log({name, options})
-    this.meshblu.updateDangerously(this.meshblu.uuid, {$set: {name, options}}, (error) => {
-      console.log('updated', {error})
+    console.log('name', name)
+    this.meshblu.update(this.state.device.uuid, {name, options}, (error, response) => {
+      console.error({error})
+      console.log('updated', response)
     })
   }
 

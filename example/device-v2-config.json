@@ -1,39 +1,39 @@
 {
   "type": "device:v2",
   "meshblu": {
-    "schemas": {
-      "configure": [
-        {
-          "title": "YoAge",
-          "type": "object",
-          "properties": {
-            "firstName": {
-              "type": "string"
-            },
-            "lastName": {
-              "type": "string"
-            }
-          }
-        },
-        {
-          "title": "YoDeets",
-          "type": "object",
-          "properties": {
-            "age": {
-              "type": "integer",
-              "title": "Age"
-            },
-            "bio": {
-              "type": "string",
-              "title": "Bio"
-            }
-          }
-        }
-      ],
-      "message": []
-    },
     "updatedAt": "2016-04-14T14:08:23-07:00",
     "hash": "m+ijSqpY09mvVW8Kj4WIpyFHBlTzQORLOnMiQkv1S14="
+  },
+  "schemas": {
+    "configure": [
+      {
+        "title": "YoAge",
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "title": "YoDeets",
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "integer",
+            "title": "Age"
+          },
+          "bio": {
+            "type": "string",
+            "title": "Bio"
+          }
+        }
+      }
+    ],
+    "message": []
   },
   "uuid": "4c868a60-36d4-471c-86c8-5db5818e3d70",
   "online": false,
