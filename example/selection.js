@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import MeshbluDevice from './device-v2.json'
+// import MeshbluDevice from './device.json'
 import MeshbluDeviceEditor from '../index'
 
 class ExampleSelection extends Component {
@@ -8,7 +8,7 @@ class ExampleSelection extends Component {
 
   constructor(props) {
     super(props)
-    
+
     const uuid    = "66f0aa2b-e177-43f0-a9d6-782033ebe806"
     const token   = "9542c440298850a33f6353e9d96a68a31a8ce95a"
     const options = {
