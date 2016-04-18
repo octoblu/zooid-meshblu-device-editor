@@ -1,19 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import ReactSchemaForm from 'react-jsonschema-form';
 
+const defaultState = {
+  device: null,
+  selectedSchema: null,
+};
+
+const propTypes = {
+  device: PropTypes.object.isRequired,
+};
+
 export default class MeshbluDeviceEditor extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      device: null,
-      selectedSchema: null,
-    };
+    this.state     = defaultState;
+    this.propTypes = propTypes;
   }
 
   componentDidMount() {
-    const { device } = this.props;
-    this.setState({ device });
+    // const { device } = this.props;
   }
 
   componentWillReceiveProps({ device }) {
