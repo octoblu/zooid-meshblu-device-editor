@@ -10,6 +10,7 @@
     "build": "npm run clean && npm run build:webpack",
     "start": "node dev-server.js",
     "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "mocha": "NODE_ENV=test mocha test/.setup.js src/**/*.spec.js",
     "test": "npm run mocha",
     "test:watch": "npm run mocha -- -w -R mocha-multi --reporter-options spec=-,mocha-osx-reporter=-"

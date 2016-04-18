@@ -1,24 +1,22 @@
-import _ from 'lodash'
-import React, { Component, PropTypes } from 'react'
+import _ from 'lodash';
+import React, { PropTypes } from 'react';
 
 const propTypes = {
   titles: PropTypes.array.isRequired,
   selectedTitle: PropTypes.string,
-  onChange: PropTypes.func
-}
+  onChange: PropTypes.func,
+};
 
 const defaultProps = {
-  onChange: _.noop
-}
+  onChange: _.noop,
+};
 
-const SchemaSelector = ({titles, selectedTitle, onChange}) => {
-  if (!titles) return null
-
-  selectedTitle = selectedTitle || _.head(titles)
+const SchemaSelector = ({ titles, selectedTitle = _.head(titles), onChange }) => {
+  if (!titles) return null;
 
   const options = _.map(titles, (title, index) => {
-    return <option value={title} key={index}>{title}</option>
-  })
+    return <option value={title} key={index}>{title}</option>;
+  });
 
   return (
     <select
@@ -28,10 +26,10 @@ const SchemaSelector = ({titles, selectedTitle, onChange}) => {
     >
       {options}
     </select>
-  )
-}
+  );
+};
 
-SchemaSelector.propTypes    = propTypes
-SchemaSelector.defaultProps = defaultProps
+SchemaSelector.propTypes    = propTypes;
+SchemaSelector.defaultProps = defaultProps;
 
-export default SchemaSelector
+export default SchemaSelector;
