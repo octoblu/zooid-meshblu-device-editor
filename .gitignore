@@ -1,4 +1,10 @@
+dist
 example/bundle.js
+
+.DS_Store
+
+# tmp/sample devices
+tmp
 
 # Logs
 logs
@@ -30,6 +36,3 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
-
-# tmp/sample devices
-tmp

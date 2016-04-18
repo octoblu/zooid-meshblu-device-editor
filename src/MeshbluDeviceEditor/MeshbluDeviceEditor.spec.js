@@ -10,7 +10,7 @@ import MeshbluDeviceEditor from './MeshbluDeviceEditor';
 
 chai.use(chaiEnzyme());
 
-describe.only('MeshbluDeviceEditor', () => {
+describe.only('<MeshbluDeviceEditor />', () => {
   let sut
 
   beforeEach(() => {

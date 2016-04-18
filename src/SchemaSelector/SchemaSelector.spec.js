@@ -9,7 +9,7 @@ import SchemaSelector from './SchemaSelector';
 
 chai.use(chaiEnzyme());
 
-describe('SchemaSelector', () => {
+describe('<SchemaSelector />', () => {
   let sut
 
   beforeEach(() => {
