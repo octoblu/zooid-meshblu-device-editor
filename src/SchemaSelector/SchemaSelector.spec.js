@@ -77,12 +77,19 @@ describe('<SchemaSelector />', () => {
 
     beforeEach(() => {
       const schemas = ['intern-01', 'intern-02'];
+      const mockEvent = {
+        target: {
+          value: 'intern-01',
+        },
+      };
+
       sut = shallow(<SchemaSelector schemas={schemas} onChange={handleChange} />);
-      sut.simulate('change');
+      sut.simulate('change', mockEvent);
     });
 
     it('should call the onChange function', () => {
-      expect(handleChange.calledOnce).to.equal(true);
+      expect(handleChange.called).to.equal(true);
+      expect(handleChange.calledWith('intern-01')).to.equal(true);
     });
   });
 });

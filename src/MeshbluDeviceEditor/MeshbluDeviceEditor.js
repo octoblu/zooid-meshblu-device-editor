@@ -17,7 +17,7 @@ export default class MeshbluDeviceEditor extends Component {
       selectedSchema: null,
     };
 
-    this.handleSchemaSelection = this.handleSchemaSelection.bind(this)
+    this.handleSchemaSelection = this.handleSchemaSelection.bind(this);
   }
 
   componentWillMount() {
