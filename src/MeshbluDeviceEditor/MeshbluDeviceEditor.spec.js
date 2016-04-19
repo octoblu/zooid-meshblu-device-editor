@@ -1,14 +1,14 @@
 import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import FakeMeshbluDevice from '../../test/fake-meshblu-device.json';
 import MeshbluDeviceEditor from './MeshbluDeviceEditor';
 
 chai.use(chaiEnzyme());
 
-describe.only('<MeshbluDeviceEditor />', () => {
+describe('<MeshbluDeviceEditor />', () => {
   let sut;
 
   beforeEach(() => {
@@ -16,34 +16,96 @@ describe.only('<MeshbluDeviceEditor />', () => {
   });
 
   it('should exist', () => {
-    expect(sut).to.exist();
+    expect(sut).to.be.present();
   });
 
-  describe('when device prop is not set', () => {
+  describe('when the device does not exist', () => {
     beforeEach(() => {
       sut = shallow(<MeshbluDeviceEditor />);
     });
 
-    it('should render nothing', () => {
-      expect(sut.html()).to.not.exist();
+    it('should render a "No device" message', () => {
+      expect(sut).to.contain.text('No device');
     });
   });
 
-  describe('when device prop is set', () => {
+  describe('when given a device', () => {
     beforeEach(() => {
-      sut = mount(<MeshbluDeviceEditor device={FakeMeshbluDevice} />);
+      sut = shallow(<MeshbluDeviceEditor device={FakeMeshbluDevice} />);
+    });
+  });
+
+  describe('When device has no schema property', () => {
+    beforeEach(() => {
+      const device = {};
+      sut = shallow(<MeshbluDeviceEditor device={device} />);
     });
 
-    it('should add the device to the state', () => {
-      expect(sut.state('device')).to.exist();
-      expect(sut.state('selectedSchema')).to.exist();
+    it('should render a message', () => {
+      expect(sut).to.contain.text('Device has no schema');
+    });
+  });
+
+  describe('When device schema has no version property', () => {
+    beforeEach(() => {
+      const device = { schemas: {} };
+      sut = shallow(<MeshbluDeviceEditor device={device} />);
     });
 
+    it('should render a message', () => {
+      expect(sut).to.contain.text('Device has no schema');
+    });
+  });
 
-    describe('when device schema exists', () => {
-      it('should set the selectedSchema the schema', () => {
-        expect(sut.find('form.rjsf')).to.exist();
-      });
+  describe('When device schema version is invalid', () => {
+    beforeEach(() => {
+      const device = {
+        schemas: {
+          'v777-9311': {},
+        },
+      };
+
+      sut = shallow(<MeshbluDeviceEditor device={device} />);
+    });
+
+    it('should render a message', () => {
+      expect(sut).to.contain.text('Schema version not supported');
+    });
+  });
+
+  describe('When device schema version is valid but empty', () => {
+    beforeEach(() => {
+      const device = {
+        schemas: {
+          'v1.0.0': {},
+        },
+      };
+
+      sut = shallow(<MeshbluDeviceEditor device={device} />);
+    });
+
+    it('should render a message', () => {
+      expect(sut).to.contain.text('Device has no schema');
+    });
+  });
+
+  describe('When the device has one or more schemas', () => {
+    beforeEach(() => {
+      sut = shallow(<MeshbluDeviceEditor device={FakeMeshbluDevice} />);
+    });
+
+    it('should set the schema state', () => {
+      expect(sut).state('schemas').to.deep.equal(FakeMeshbluDevice.schemas['v1.0.0']);
+    });
+  });
+
+  describe('When device has a valid device schema', () => {
+    beforeEach(() => {
+      sut = shallow(<MeshbluDeviceEditor device={FakeMeshbluDevice} />);
+    });
+
+    it('should set the selectedSchema state to the device schema', () => {
+      expect(sut).state('selectedSchema').to.deep.equal(FakeMeshbluDevice.schemas['v1.0.0'].device);
     });
   });
 });

@@ -17,57 +17,57 @@ describe('<SchemaSelector />', () => {
   });
 
   it('should exist', () => {
-    expect(sut).to.exist();
+    expect(sut).to.be.present();
   });
 
-  describe('when given titles as prop', () => {
-    const titles = ['Mesa', 'Phoenix', 'Chi-Town'];
+  describe('when given schemas', () => {
+    const schemas = ['Mesa', 'Phoenix', 'Chi-Town'];
 
     beforeEach(() => {
-      sut = shallow(<SchemaSelector titles={titles} />);
+      sut = shallow(<SchemaSelector schemas={schemas} />);
     });
 
-    it('should render options with each title', () => {
-      expect(sut.find('option').length).to.equal(titles.length);
+    it('should render options with each schema name', () => {
+      expect(sut.find('option').length).to.equal(schemas.length);
     });
 
-    it('should set the text and value of each option to the title', () => {
-      _.forEach(titles, (title, index) => {
+    it('should set the text and value of each option to the schema name', () => {
+      _.forEach(schemas, (title, index) => {
         expect(sut.find('select').childAt(index).props().value).to.equal(title);
         expect(sut.find('select').childAt(index).props().children).to.equal(title);
       });
     });
   });
 
-  describe('when titles are not passed as props', () => {
+  describe('when schemas are not given', () => {
     beforeEach(() => {
       sut = shallow(<SchemaSelector />);
     });
 
     it('should render nothing', () => {
-      expect(sut.html()).to.not.exist();
+      expect(sut).to.be.blank();
     });
   });
 
-  describe('When no selectedTitle prop is passed in', () => {
-    const titles = ['intern-01', 'intern-02'];
+  describe('When no selectedSchema prop is passed in', () => {
+    const schemas = ['intern-01', 'intern-02'];
 
     beforeEach(() => {
-      sut = shallow(<SchemaSelector titles={titles} />);
+      sut = shallow(<SchemaSelector schemas={schemas} />);
     });
 
-    it('should default to the first title', () => {
-      expect(sut.props().defaultValue).to.equal(titles[0]);
+    it('should default to the first schema', () => {
+      expect(sut.props().defaultValue).to.equal(schemas[0]);
     });
   });
 
-  describe('When selectedTitle is passed in', () => {
+  describe('When selectedSchema is passed in', () => {
     beforeEach(() => {
-      const titles = ['intern-01', 'intern-02'];
-      sut = shallow(<SchemaSelector titles={titles} selectedTitle="bang!" />);
+      const schemas = ['intern-01', 'intern-02'];
+      sut = shallow(<SchemaSelector schemas={schemas} selectedSchema="bang!" />);
     });
 
-    it('should set the defaultValue to the selectedTitle', () => {
+    it('should set the defaultValue to the selectedSchema', () => {
       expect(sut.props().defaultValue).to.equal('bang!');
     });
   });
@@ -76,8 +76,8 @@ describe('<SchemaSelector />', () => {
     const handleChange = sinon.spy();
 
     beforeEach(() => {
-      const titles = ['intern-01', 'intern-02'];
-      sut = shallow(<SchemaSelector titles={titles} onChange={handleChange} />);
+      const schemas = ['intern-01', 'intern-02'];
+      sut = shallow(<SchemaSelector schemas={schemas} onChange={handleChange} />);
       sut.simulate('change');
     });
 

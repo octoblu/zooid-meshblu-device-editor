@@ -1,42 +1,54 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import MeshbluDeviceEditor from '../index'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import MeshbluDeviceEditor from '../src/MeshbluDeviceEditor/MeshbluDeviceEditor';
+
+import ExampleDevice from './example-device.json';
 
 class Example extends Component {
-  state = {}
+  constructor(props) {
+    super(props);
 
-  componentDidMount = () => {
-    var meshblu = new MeshbluHttp()
-    meshblu.register({
-      name: 'BEEZZZ',
-      optionsSchema: {
-        type: 'object',
-        properties: {
-          'buzz': {type: 'boolean'}
-        }
-      }},(error, device) => {
-      this.setState({device})
-      this.meshblu = new MeshbluHttp(this.state.device)
-    })
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = ({name, options}) => {
-    console.log({name, options})
-    this.meshblu.updateDangerously(this.meshblu.uuid, {$set: {name, options}}, (error) => {
-      console.log('updated', {error})
-    })
+  componentWillMount() {
+    const device = ExampleDevice;
+    this.setState({ device });
   }
 
-  render = () => {
-    const {device} = this.state
-    if(!device) return <h1>Loading</h1>
+  componentDidMount() {
+    // var meshblu = new MeshbluHttp();
+
+    // meshblu.register({
+    //   name: 'BEEZZZ',
+    //   optionsSchema: {
+    //     type: 'object',
+    //     properties: {
+    //       'buzz': {type: 'boolean'}
+    //     }
+    //   }}, (error, device) => {
+    //   this.setState({device})
+    //   this.meshblu = new MeshbluHttp(this.state.device)
+    // })
+  }
+
+  handleChange({ name, options }) {
+    // this.meshblu.updateDangerously(this.meshblu.uuid, {$set: {name, options}}, (error) => {
+    //   console.log('updated', {error})
+    // })
+  }
+
+  render() {
+    const { device } = this.state;
+    if (!device) return <h1>Loading</h1>;
+
     return (
       <MeshbluDeviceEditor
         device={device}
         onChange={this.handleChange}
       />
-    )
+    );
   }
 }
 
-ReactDOM.render(<Example />, document.querySelector('#root'))
+ReactDOM.render(<Example />, document.querySelector('#root'));

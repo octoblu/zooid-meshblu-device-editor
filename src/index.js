@@ -1,6 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import ReactSchemaForm from 'react-jsonschema-form';
 
+
+const propTypes = {
+  device: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
 export default class MeshbluDeviceEditor extends Component {
   constructor(props) {
     super(props);
@@ -11,23 +17,18 @@ export default class MeshbluDeviceEditor extends Component {
       optionsSchema: { type: 'object' },
     };
 
-    this.propTypes = {
-      device: PropTypes.object.isRequired,
-      onChange: PropTypes.func.isRequired,
-    };
-
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleOptionsChange = this.handleOptionsChange.bind(this);
   }
 
 
   componentDidMount() {
-    const { name, options, optionsSchema } = this.props.device
+    const { name, options, optionsSchema } = this.props.device;
 
     this.setState({
-      name: name,
-      options: options,
-      optionsSchema: optionsSchema,
+      name,
+      options,
+      optionsSchema,
     });
   }
 
@@ -76,3 +77,5 @@ export default class MeshbluDeviceEditor extends Component {
     );
   }
 }
+
+MeshbluDeviceEditor.propTypes = propTypes;

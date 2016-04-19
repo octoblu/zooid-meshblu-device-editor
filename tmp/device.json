@@ -34,10 +34,23 @@
           }
         }
       ],
-      "device": {},
+      "device": {
+        "title": "YoDeets",
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "integer",
+            "title": "Age"
+          },
+          "bio": {
+            "type": "string",
+            "title": "Bio"
+          }
+        }
+      },
     },
   },
   "uuid": "uui-d",
   "online": false,
-  "token": "$token$""
+  "token": "$token$"
 }
