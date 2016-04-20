@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import MeshbluDeviceEditor from '../src/MeshbluDeviceEditor/MeshbluDeviceEditor';
+import MeshbluDeviceEditor from '../src/index';
 
 import ExampleDevice from '../test/fake-meshblu-device.json';
 

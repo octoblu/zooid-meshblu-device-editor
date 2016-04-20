@@ -3,12 +3,12 @@ import chaiEnzyme from 'chai-enzyme';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
-import MeshbluDeviceEditor from './MeshbluDeviceEditor';
+import fakeMeshbluDevice from '../test/fake-meshblu-device.json';
+import MeshbluDeviceEditor from './index';
 
 chai.use(chaiEnzyme());
 
-describe.only('<MeshbluDeviceEditor />', () => {
+describe('<MeshbluDeviceEditor />', () => {
   let sut;
 
   beforeEach(() => {

@@ -1,78 +1,89 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import ReactSchemaForm from 'react-jsonschema-form';
+import { Validator } from 'jsonschema';
 
+import SchemaSelector from './SchemaSelector/SchemaSelector';
+import ConfigureSchemaForm from './ConfigureSchemaForm/ConfigureSchemaForm';
+import MessagesSchemaForm from './MessagesSchemaForm/MessagesSchemaForm';
+
+import validationSchema from './validation-schema.json';
 
 const propTypes = {
   device: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default class MeshbluDeviceEditor extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: '',
-      options: {},
-      optionsSchema: { type: 'object' },
+    this.state =  {
+      schemas: null,
+      selectedSchema: null,
+      errors: null,
     };
 
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleOptionsChange = this.handleOptionsChange.bind(this);
+    this.validator = new Validator();
+    this.handleSchemaSelection = this.handleSchemaSelection.bind(this);
   }
 
+  componentWillMount() {
+    const { device } = this.props;
 
-  componentDidMount() {
-    const { name, options, optionsSchema } = this.props.device;
+    if (_.isEmpty(device)) {
+      const errors = [];
+
+      errors.push(new Error('No device provided'));
+      this.setState({ errors });
+
+      return;
+    }
+
+    const { errors } = this.validator.validate(device, validationSchema);
+
+    if (!_.isEmpty(errors)) {
+      this.setState({ errors });
+      return;
+    }
+
+    const { schemas } = device;
 
     this.setState({
-      name,
-      options,
-      optionsSchema,
+      schemas,
+      selectedSchema: schemas.configure,
     });
   }
 
-  handleOptionsChange({ formData }) {
-    this.props.onChange({ options: formData, name: this.state.name });
+  handleSchemaSelection(selectedSchema) {
+    const { schemas } = this.state;
+    this.setState({
+      selectedSchema: schemas[selectedSchema],
+    });
   }
 
-  handleNameChange({ target }) {
-    const name = target.value;
-    this.setState({ name });
+  renderErrorMessages(errors) {
+    const errorItems = _.map(errors, (error, index) => {
+      return <li key={ index }>{ error.message }</li>;
+    });
+
+    return <ul className="errors">{ errorItems }</ul>;
   }
 
   render() {
-    const { error, loading, name, options, optionsSchema } = this.state;
+    const { errors, schemas, selectedSchema } = this.state;
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error.message}</div>;
-
-    let schemaEditor = <span></span>;
-    if (optionsSchema) {
-      schemaEditor = (
-        <ReactSchemaForm
-          schema={optionsSchema}
-          formData={options}
-          onSubmit={this.handleOptionsChange}
-        />
-      );
-    }
+    if (!_.isEmpty(errors)) return this.renderErrorMessages(errors);
 
     return (
-      <div>
-        <div className="MeshbluDeviceEditor-form">
-          <label htmlFor="name" className="MeshbluDeviceEditor-label">Name:</label>
-          <div className="MeshbluDeviceEditor-section">
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={this.handleNameChange}
-              className="MeshbluDeviceEditor-name"
-            />
-          </div>
-        </div>
-        {schemaEditor}
+      <div className="MeshbluDeviceEditor">
+        <SchemaSelector
+          schemaKeys={['configure', 'messages']}
+          selectedSchemaKey={'configure'}
+          onChange={this.handleSchemaSelection}
+        />
+
+        <ConfigureSchemaForm />
+        <MessagesSchemaForm />
       </div>
     );
   }
