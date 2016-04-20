@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import MeshbluDeviceEditor from '../src/MeshbluDeviceEditor/MeshbluDeviceEditor';
 
-import ExampleDevice from './example-device.json';
+import ExampleDevice from '../test/fake-meshblu-device.json';
 
 class Example extends Component {
   constructor(props) {
@@ -31,6 +31,7 @@ class Example extends Component {
 
     return (
       <MeshbluDeviceEditor
+        device={ExampleDevice}
         onChange={this.handleChange}
       />
     );

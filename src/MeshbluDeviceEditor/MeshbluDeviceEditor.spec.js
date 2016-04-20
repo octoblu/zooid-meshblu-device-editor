@@ -25,11 +25,11 @@ describe.only('<MeshbluDeviceEditor />', () => {
     });
 
     it('should render an error message', () => {
-      expect(sut).to.be.blank();
+      expect(sut.find('.errors')).to.have.text('No device provided');
     });
   });
 
-  describe('when given a device that fails validation', () => {
+  describe('when given a device that fails schema validation', () => {
     beforeEach(() => {
       const badDevice = { uuid: 'awesome-sauce' };
       sut = shallow(<MeshbluDeviceEditor device={badDevice} />);
@@ -44,13 +44,25 @@ describe.only('<MeshbluDeviceEditor />', () => {
     });
   });
 
-  describe('when given a device that passes validation', () => {
+  describe('when given a device that passes schema validation', () => {
     beforeEach(() => {
       sut = mount(<MeshbluDeviceEditor device={fakeMeshbluDevice} />);
     });
 
-    it('should set the state with a schema', () => {
-      expect(sut).to.have.state('schemas');
+    it('should set the schema property on the state', () => {
+      expect(sut.state('schemas')).to.exist;
+      expect(sut.state('schemas')).to.deep.equal(fakeMeshbluDevice.schemas);
+    });
+
+    it('should set selectedSchema on the state to the configure schema', () => {
+      const { configure } = fakeMeshbluDevice.schemas;
+
+      expect(sut.state('selectedSchema')).to.exist;
+      expect(sut.state('selectedSchema')).to.deep.equal(configure);
+    });
+
+    it('should render selectedSchema', () => {
+      expect(sut.find('.MeshbluDeviceEditor-schemaForm')).to.not.be.blank();
     });
   });
 });

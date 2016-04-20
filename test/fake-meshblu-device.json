@@ -34,7 +34,7 @@
         }
       }
     ],
-   "configure": {
+    "configure": {
       "type": "object",
       "properties": {
         "command" : {

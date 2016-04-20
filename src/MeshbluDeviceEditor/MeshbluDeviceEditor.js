@@ -25,12 +25,30 @@ export default class MeshbluDeviceEditor extends Component {
   }
 
   componentWillMount() {
-    const { errors, schema } = this.validator.validate(this.props.device, validationSchema);
+    const { device } = this.props;
 
-    if (!_.isEmpty(errors)) return this.setState({ errors });
+    if (_.isEmpty(device)) {
+      const errors = [];
 
-    return this.setState({ schema });
+      errors.push(new Error('No device provided'));
+      this.setState({ errors });
 
+      return;
+    }
+
+    const { errors } = this.validator.validate(device, validationSchema);
+
+    if (!_.isEmpty(errors)) {
+      this.setState({ errors });
+      return;
+    }
+
+    const { schemas } = device;
+
+    this.setState({
+      schemas,
+      selectedSchema: schemas.configure,
+    });
   }
 
   handleSchemaSelection(selectedSchema) {
@@ -49,29 +67,27 @@ export default class MeshbluDeviceEditor extends Component {
   }
 
   render() {
-    const { device } = this.props;
     const { errors, schemas, selectedSchema } = this.state;
 
-    if (_.isEmpty(device)) return null;
     if (!_.isEmpty(errors)) return this.renderErrorMessages(errors);
 
-    return <div />;
+    return (
+      <div className="MeshbluDeviceEditor">
+        <SchemaSelector
+          schemas={_.keys(schemas)}
+          selectedSchema={selectedSchema}
+          onChange={this.handleSchemaSelection}
+        />
 
-    // return (
-    //   <div>
-    //     <SchemaSelector
-    //       schemas={_.keys(schemas)}
-    //       selectedSchema={selectedSchema}
-    //       onChange={this.handleSchemaSelection}
-    //     />
-    //
-    //     <ReactSchemaForm
-    //       schema={selectedSchema}
-    //       formData={{}}
-    //       onSubmit={null}
-    //     />
-    //   </div>
-    // );
+        <div className="MeshbluDeviceEditor-schemaForm">
+          <ReactSchemaForm
+            schema={selectedSchema}
+            formData={{}}
+            onSubmit={null}
+          />
+        </div>
+      </div>
+    );
   }
 }
 
