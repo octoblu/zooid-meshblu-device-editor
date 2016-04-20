@@ -11,7 +11,7 @@ const defaultProps = {
   onChange: _.noop,
 };
 
-const SchemaSelector = ({ schemas, selectedSchema = _.head(schemas), onChange }) => {
+const SchemaSelector = ({ schemas, selectedSchema, onChange }) => {
   if (!schemas) return null;
 
   const options = _.map(schemas, (title, index) => {

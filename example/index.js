@@ -17,19 +17,6 @@ class Example extends Component {
   }
 
   componentDidMount() {
-    // var meshblu = new MeshbluHttp();
-
-    // meshblu.register({
-    //   name: 'BEEZZZ',
-    //   optionsSchema: {
-    //     type: 'object',
-    //     properties: {
-    //       'buzz': {type: 'boolean'}
-    //     }
-    //   }}, (error, device) => {
-    //   this.setState({device})
-    //   this.meshblu = new MeshbluHttp(this.state.device)
-    // })
   }
 
   handleChange({ name, options }) {
@@ -44,7 +31,6 @@ class Example extends Component {
 
     return (
       <MeshbluDeviceEditor
-        device={device}
         onChange={this.handleChange}
       />
     );

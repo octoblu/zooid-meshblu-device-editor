@@ -4,42 +4,39 @@
     "updatedAt": "2016-04-14T14:08:23-07:00",
     "hash": "m+ijSqpY09mvVW8Kj4WIpyFHBlTzQORLOnMiQkv1S14="
   },
-  "uuid": "uui-d",
-  "online": false,
-  "token": "$token$",
   "schemas": {
-    "v1.0.0": {
-      "messages": [
-        {
-          "title": "YoAge",
-          "type": "object",
-          "properties": {
-            "firstName": {
-              "type": "string"
-            },
-            "lastName": {
-              "type": "string"
-            }
-          }
-        },
-        {
-          "title": "YoDeets",
-          "type": "object",
-          "properties": {
-            "age": {
-              "type": "integer",
-              "title": "Age"
-            },
-            "bio": {
-              "type": "string",
-              "title": "Bio"
-            }
-          }
-        }
-      ],
-      "device":  {
+    "version": "1.0.0",
+    "messages": [
+      {
+        "title": "YoAge",
         "type": "object",
         "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "title": "YoDeets",
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "integer",
+            "title": "Age"
+          },
+          "bio": {
+            "type": "string",
+            "title": "Bio"
+          }
+        }
+      }
+    ],
+   "configure": {
+      "type": "object",
+      "properties": {
         "command" : {
           "type" : "object",
           "properties" : {
@@ -56,7 +53,9 @@
           }
         }
       }
-      }
     }
-  }
+  },
+  "uuid": "uui-d",
+  "online": false,
+  "token": "$token$"
 }

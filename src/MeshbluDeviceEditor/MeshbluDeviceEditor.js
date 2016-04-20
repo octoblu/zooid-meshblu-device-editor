@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import ReactSchemaForm from 'react-jsonschema-form';
+import { Validator } from 'jsonschema';
 
 import SchemaSelector from '../SchemaSelector/SchemaSelector';
+import validationSchema from '../validation-schema.json';
 
 const propTypes = {
   device: PropTypes.object.isRequired,
@@ -15,69 +17,61 @@ export default class MeshbluDeviceEditor extends Component {
     this.state =  {
       schemas: null,
       selectedSchema: null,
+      errors: null,
     };
 
+    this.validator = new Validator();
     this.handleSchemaSelection = this.handleSchemaSelection.bind(this);
   }
 
   componentWillMount() {
-    const error = this.validateSchema();
+    const { errors, schema } = this.validator.validate(this.props.device, validationSchema);
 
-    if (error) {
-      this.setState({ error });
-    } else {
-      const schemas = this.props.device.schemas['v1.0.0'];
+    if (!_.isEmpty(errors)) return this.setState({ errors });
 
-      this.setState({ schemas });
-      if (!_.isEmpty(schemas.device)) {
-        this.setState({ selectedSchema: schemas.device });
-      }
-    }
-  }
+    return this.setState({ schema });
 
-  validateSchema() {
-    const { device } = this.props;
-
-    const NO_DEVICE_MSG          = 'No device';
-    const UNSUPPORTED_SCHEMA_MSG = 'Schema version not supported';
-    const NO_SCHEMA_MSG          = 'Device has no schema';
-
-    if (!device) return new Error(NO_DEVICE_MSG);
-    if (_.isEmpty(device.schemas)) return new Error(NO_SCHEMA_MSG);
-    if (!device.schemas['v1.0.0']) return new Error(UNSUPPORTED_SCHEMA_MSG);
-    if (_.isEmpty(device.schemas['v1.0.0'])) return new Error(NO_SCHEMA_MSG);
-
-    return null;
   }
 
   handleSchemaSelection(selectedSchema) {
     const { schemas } = this.state;
-
     this.setState({
       selectedSchema: schemas[selectedSchema],
     });
   }
 
+  renderErrorMessages(errors) {
+    const errorItems = _.map(errors, (error, index) => {
+      return <li key={ index }>{ error.message }</li>;
+    });
+
+    return <ul className="errors">{ errorItems }</ul>;
+  }
+
   render() {
-    const { error, schemas, selectedSchema } = this.state;
+    const { device } = this.props;
+    const { errors, schemas, selectedSchema } = this.state;
 
-    if (error) return <div>{error.message}</div>;
+    if (_.isEmpty(device)) return null;
+    if (!_.isEmpty(errors)) return this.renderErrorMessages(errors);
 
-    return (
-      <div>
-        <SchemaSelector
-          schemas={_.keys(schemas)}
-          selectedSchema={selectedSchema}
-          onChange={this.handleSchemaSelection}
-        />
+    return <div />;
 
-        <ReactSchemaForm
-          schema={selectedSchema}
-          formData={{}}
-          onSubmit={null}
-        />
-      </div>
-    );
+    // return (
+    //   <div>
+    //     <SchemaSelector
+    //       schemas={_.keys(schemas)}
+    //       selectedSchema={selectedSchema}
+    //       onChange={this.handleSchemaSelection}
+    //     />
+    //
+    //     <ReactSchemaForm
+    //       schema={selectedSchema}
+    //       formData={{}}
+    //       onSubmit={null}
+    //     />
+    //   </div>
+    // );
   }
 }
 
