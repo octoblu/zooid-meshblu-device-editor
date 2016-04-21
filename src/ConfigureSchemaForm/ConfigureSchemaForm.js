@@ -5,14 +5,19 @@ const propTypes = {
   schema: PropTypes.object.isRequired,
 };
 
+const defaultProps = {
+  schema: {},
+};
+
 const ConfigureSchemaForm = ({ schema }) => {
   return (
-    <div className="ConfigureSchemaForm">
+    <div className="SchemaForm--configuration">
       <ReactSchemaForm schema={schema} />
     </div>
   );
 };
 
-ConfigureSchemaForm.propTypes = propTypes;
+ConfigureSchemaForm.propTypes    = propTypes;
+ConfigureSchemaForm.defaultProps = defaultProps;
 
 export default ConfigureSchemaForm;

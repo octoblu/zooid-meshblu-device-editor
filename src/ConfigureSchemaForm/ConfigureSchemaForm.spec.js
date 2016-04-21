@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import ConfigureSchemaForm from './ConfigureSchemaForm';
 
@@ -29,6 +29,16 @@ describe.only('<ConfigureSchemaForm />', () => {
 
     it('should render the schema', () => {
       expect(sut.find('form').at(0)).to.exist;
+    });
+  });
+
+  describe('when given no schema', () => {
+    beforeEach(() => {
+      sut = mount(<ConfigureSchemaForm />);
+    });
+
+    it('should set default prop', () => {
+      expect(sut.prop('schema')).to.deep.equal({});
     });
   });
 });
