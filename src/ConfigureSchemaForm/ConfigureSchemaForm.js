@@ -1,20 +1,18 @@
 import React, { PropTypes } from 'react';
+import ReactSchemaForm from 'react-jsonschema-form';
 
 const propTypes = {
+  schema: PropTypes.object.isRequired,
 };
 
-const defaultProps = {
-};
-
-const ConfigureSchemaForm = () => {
+const ConfigureSchemaForm = ({ schema }) => {
   return (
     <div className="ConfigureSchemaForm">
-      ConfigureSchemaForm
+      <ReactSchemaForm schema={schema} />
     </div>
   );
 };
 
-ConfigureSchemaForm.propTypes    = propTypes;
-ConfigureSchemaForm.defaultProps = defaultProps;
+ConfigureSchemaForm.propTypes = propTypes;
 
 export default ConfigureSchemaForm;

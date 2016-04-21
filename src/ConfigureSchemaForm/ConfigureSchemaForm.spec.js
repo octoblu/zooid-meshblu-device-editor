@@ -5,9 +5,11 @@ import { shallow } from 'enzyme';
 
 import ConfigureSchemaForm from './ConfigureSchemaForm';
 
+import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
+
 chai.use(chaiEnzyme());
 
-describe('<ConfigureSchemaForm />', () => {
+describe.only('<ConfigureSchemaForm />', () => {
   let sut;
 
   beforeEach(() => {
@@ -16,5 +18,17 @@ describe('<ConfigureSchemaForm />', () => {
 
   it('should exist', () => {
     expect(sut).to.be.present();
+  });
+
+  describe('when given a valid schema', () => {
+    beforeEach(() => {
+      sut = shallow(
+        <ConfigureSchemaForm schema={fakeMeshbluDevice.schemas.configure} />
+      );
+    });
+
+    it('should render the schema', () => {
+      expect(sut.find('form').at(0)).to.exist;
+    });
   });
 });

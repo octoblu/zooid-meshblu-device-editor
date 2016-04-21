@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import ReactSchemaForm from 'react-jsonschema-form';
 import { Validator } from 'jsonschema';
 
+import ErrorMessages from './ErrorMessages/ErrorMessages';
 import SchemaSelector from './SchemaSelector/SchemaSelector';
 import ConfigureSchemaForm from './ConfigureSchemaForm/ConfigureSchemaForm';
 import MessagesSchemaForm from './MessagesSchemaForm/MessagesSchemaForm';
@@ -61,18 +61,10 @@ export default class MeshbluDeviceEditor extends Component {
     });
   }
 
-  renderErrorMessages(errors) {
-    const errorItems = _.map(errors, (error, index) => {
-      return <li key={ index }>{ error.message }</li>;
-    });
-
-    return <ul className="errors">{ errorItems }</ul>;
-  }
-
   render() {
     const { errors, schemas, selectedSchema } = this.state;
 
-    if (!_.isEmpty(errors)) return this.renderErrorMessages(errors);
+    if (!_.isEmpty(errors)) return <ErrorMessages errors={errors} />;
 
     return (
       <div className="MeshbluDeviceEditor">

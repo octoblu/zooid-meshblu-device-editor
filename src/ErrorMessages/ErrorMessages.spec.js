@@ -7,7 +7,7 @@ import ErrorMessages from './ErrorMessages';
 
 chai.use(chaiEnzyme());
 
-describe.only('<ErrorMessages />', () => {
+describe('<ErrorMessages />', () => {
   let sut;
 
   beforeEach(() => {
