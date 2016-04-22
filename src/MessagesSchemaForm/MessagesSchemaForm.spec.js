@@ -7,7 +7,7 @@ import MessagesSchemaForm from './MessagesSchemaForm';
 
 chai.use(chaiEnzyme());
 
-describe('<MessagesSchemaForm />', () => {
+describe.only('<MessagesSchemaForm />', () => {
   let sut;
 
   beforeEach(() => {

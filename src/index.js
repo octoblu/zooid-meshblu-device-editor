@@ -18,9 +18,10 @@ export default class MeshbluDeviceEditor extends Component {
     super(props);
 
     this.state =  {
-      schemas: null,
-      selectedSchema: null,
       errors: null,
+      schemas: null,
+      selectedSchemaKey: null,
+      selectedSchema: null,
     };
 
     this.validator = new Validator();
@@ -54,15 +55,27 @@ export default class MeshbluDeviceEditor extends Component {
     });
   }
 
-  handleSchemaSelection(selectedSchema) {
+  handleSchemaSelection(selectedSchemaKey) {
     const { schemas } = this.state;
+
     this.setState({
-      selectedSchema: schemas[selectedSchema],
+      selectedSchemaKey,
+      selectedSchema: schemas[selectedSchemaKey],
     });
   }
 
+  renderSchemaForm() {
+    const { selectedSchema, selectedSchemaKey } = this.state;
+
+    if (selectedSchemaKey === 'messages') {
+      return <MessagesSchemaForm schema={selectedSchema} />;
+    }
+
+    return <ConfigureSchemaForm schema={selectedSchema} />;
+  }
+
   render() {
-    const { errors, schemas, selectedSchema } = this.state;
+    const { errors } = this.state;
 
     if (!_.isEmpty(errors)) return <ErrorMessages errors={errors} />;
 
@@ -74,8 +87,8 @@ export default class MeshbluDeviceEditor extends Component {
           onChange={this.handleSchemaSelection}
         />
 
-        <ConfigureSchemaForm />
-        <MessagesSchemaForm />
+      {this.renderSchemaForm()}
+
       </div>
     );
   }

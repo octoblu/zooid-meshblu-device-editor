@@ -9,7 +9,7 @@ import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
 
 chai.use(chaiEnzyme());
 
-describe.only('<ConfigureSchemaForm />', () => {
+describe('<ConfigureSchemaForm />', () => {
   let sut;
 
   beforeEach(() => {

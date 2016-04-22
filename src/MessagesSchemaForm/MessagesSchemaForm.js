@@ -1,21 +1,27 @@
 import _ from 'lodash';
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+
+import SchemaSelector from './SchemaSelector/SchemaSelector';
 
 const propTypes = {
+  device: PropTypes.object.isRequired,
 };
 
-const defaultProps = {
-};
+export default class MessagesSchemaForm extends Component {
+  constructor(props) {
+    super(props);
 
-const MessagesSchemaForm = () => {
-  return (
-    <div className="MessagesSchemaForm">
-      MessagesSchemaForm
-    </div>
-  );
-};
+    this.state =  {
+      selectedSchemaKey: null,
+      selectedSchema: null,
+    };
 
-MessagesSchemaForm.propTypes    = propTypes;
-MessagesSchemaForm.defaultProps = defaultProps;
+    this.handleSchemaSelection = this.handleSchemaSelection.bind(this);
+  }
 
-export default MessagesSchemaForm;
+  render() {
+    return <div />;
+  }
+}
+
+MessagesSchemaForm.propTypes = propTypes;
