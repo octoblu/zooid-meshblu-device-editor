@@ -11,20 +11,15 @@ import validationSchema from './validation-schema.json';
 
 const propTypes = {
   device: PropTypes.object.isRequired,
+  onConfig: PropTypes.func.isRequired,
+  onMessage: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  schemaSelectorOptions: [
-    {
-      key: 'configure',
-      label: 'Configuration',
-    },
-    {
-      key: 'messages',
-      label: 'Messaging',
-    },
-  ],
+  onConfig: _.noop,
+  onMessage: _.noop,
 };
+
 
 export default class MeshbluDeviceEditor extends Component {
   constructor(props) {
@@ -38,6 +33,7 @@ export default class MeshbluDeviceEditor extends Component {
     };
 
     this.validator = new Validator();
+
     this.handleSchemaSelection = this.handleSchemaSelection.bind(this);
   }
 
@@ -78,13 +74,14 @@ export default class MeshbluDeviceEditor extends Component {
   }
 
   renderSchemaContainer() {
+    const { onConfig, onMessage }               = this.props;
     const { selectedSchema, selectedSchemaKey } = this.state;
 
     if (selectedSchemaKey === 'messages') {
-      return <MessageSchemaContainer messages={selectedSchema} />;
+      return <MessageSchemaContainer messages={selectedSchema} onSubmit={onMessage} />;
     }
 
-    return <SchemaContainer schema={selectedSchema} />;
+    return <SchemaContainer schema={selectedSchema} onSubmit={onConfig} />;
   }
 
   render() {

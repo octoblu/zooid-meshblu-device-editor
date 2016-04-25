@@ -6,6 +6,7 @@ import MessageSchemaSelector from '../MessageSchemaSelector/MessageSchemaSelecto
 
 const propTypes = {
   messages: PropTypes.array.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default class MessageSchemaContainer extends Component {
@@ -31,12 +32,13 @@ export default class MessageSchemaContainer extends Component {
   }
 
   render() {
+    const { messages, onSubmit }    = this.props;
     const { selectedMessageSchema } = this.state;
 
     return (
       <div>
-        <MessageSchemaSelector messages={this.props.messages} onChange={this.handleChange} />
-        <SchemaContainer schema={selectedMessageSchema} />
+        <MessageSchemaSelector messages={messages} onChange={this.handleChange} />
+        <SchemaContainer schema={selectedMessageSchema} onSubmit={onSubmit} />
       </div>
     );
   }
