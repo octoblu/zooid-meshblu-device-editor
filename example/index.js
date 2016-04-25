@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import MeshbluDeviceEditor from '../src/index';
+import ReactTabs from 'react-tabs';
+
+import { SchemaContainer, MessageSchemaContainer } from '../src/index';
 
 import ExampleDevice from '../test/fake-meshblu-device.json';
 
@@ -8,7 +10,8 @@ class Example extends Component {
   constructor(props) {
     super(props);
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleConfig  = this.handleConfig.bind(this);
+    this.handleMessage = this.handleMessage.bind(this);
   }
 
   componentWillMount() {
@@ -16,24 +19,42 @@ class Example extends Component {
     this.setState({ device });
   }
 
-  componentDidMount() {
+  handleConfig(model) {
+    console.log('Config', model);
   }
 
-  handleChange({ name, options }) {
-    // this.meshblu.updateDangerously(this.meshblu.uuid, {$set: {name, options}}, (error) => {
-    //   console.log('updated', {error})
-    // })
+  handleMessage(message) {
+    console.log('Message', message);
   }
 
   render() {
     const { device } = this.state;
+
     if (!device) return <h1>Loading</h1>;
 
+    const { Tab, Tabs, TabList, TabPanel } = ReactTabs;
+
     return (
-      <MeshbluDeviceEditor
-        device={ExampleDevice}
-        onChange={this.handleChange}
-      />
+      <Tabs>
+        <TabList>
+          <Tab>Configuration</Tab>
+          <Tab>Messaging</Tab>
+        </TabList>
+
+        <TabPanel>
+          <SchemaContainer
+            schema={device.schemas.configure}
+            onSubmit={this.handleConfig}
+          />
+        </TabPanel>
+
+        <TabPanel>
+          <MessageSchemaContainer
+            messages={device.schemas.messages}
+            onSubmit={this.handleMessage}
+          />
+        </TabPanel>
+      </Tabs>
     );
   }
 }
