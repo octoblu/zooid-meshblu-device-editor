@@ -9,15 +9,15 @@ const defaultProps = {
   schema: {},
 };
 
-const ConfigureSchemaForm = ({ schema }) => {
+const SchemaContainer = ({ schema }) => {
   return (
     <div className="SchemaForm--configuration">
-      <ReactSchemaForm schema={schema} />
+      <ReactSchemaForm schema={schema}  />
     </div>
   );
 };
 
-ConfigureSchemaForm.propTypes    = propTypes;
-ConfigureSchemaForm.defaultProps = defaultProps;
+SchemaContainer.propTypes    = propTypes;
+SchemaContainer.defaultProps = defaultProps;
 
-export default ConfigureSchemaForm;
+export default SchemaContainer;

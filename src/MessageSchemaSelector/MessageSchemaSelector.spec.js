@@ -7,6 +7,8 @@ import { shallow } from 'enzyme';
 
 import MessageSchemaSelector from './MessageSchemaSelector';
 
+import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
+
 chai.use(chaiEnzyme());
 
 describe('<MessageSchemaSelector />', () => {
@@ -20,28 +22,30 @@ describe('<MessageSchemaSelector />', () => {
     expect(sut).to.be.present();
   });
 
-  describe('when given schemas', () => {
-    const schemas = ['Mesa', 'Phoenix', 'Chi-Town'];
+  describe('when given messages', () => {
+    const { messages } = fakeMeshbluDevice.schemas;
 
     beforeEach(() => {
-      sut = shallow(<MessageSchemaSelector schemas={schemas} />);
+      sut = shallow(<MessageSchemaSelector messages={messages} />);
     });
 
-    it('should render options with each schema name', () => {
-      expect(sut.find('option').length).to.equal(schemas.length);
+    it('should render options', () => {
+      expect(sut.find('option').length).to.equal(messages.length);
     });
 
-    it('should set the text and value of each option to the schema name', () => {
-      _.forEach(schemas, (title, index) => {
-        expect(sut.find('select').childAt(index).props().value).to.equal(title);
+    it('should set the text and value of each option to the message title', () => {
+      _.forEach(messages, (message, index) => {
+        const { title } = message;
+
+        expect(sut.find('select').childAt(index).props().value).to.equal(index);
         expect(sut.find('select').childAt(index).props().children).to.equal(title);
       });
     });
   });
 
-  describe('when schemas are not given', () => {
+  describe('when messages are not given', () => {
     beforeEach(() => {
-      sut = shallow(<MessageSchemaSelector />);
+      sut = shallow(<MessageSchemaSelector messages={null}/>);
     });
 
     it('should render nothing', () => {
@@ -49,26 +53,14 @@ describe('<MessageSchemaSelector />', () => {
     });
   });
 
-  describe('When no selectedSchema prop is passed in', () => {
-    const schemas = ['intern-01', 'intern-02'];
-
+  describe('when messages is not an array', () => {
     beforeEach(() => {
-      sut = shallow(<MessageSchemaSelector schemas={schemas} />);
+      const messages = { foo: 'bar' };
+      sut = shallow(<MessageSchemaSelector messages={messages} />);
     });
 
-    it('should default to the first schema', () => {
-      expect(sut.props().defaultValue).to.equal(schemas[0]);
-    });
-  });
-
-  describe('When selectedSchema is passed in', () => {
-    beforeEach(() => {
-      const schemas = ['intern-01', 'intern-02'];
-      sut = shallow(<MessageSchemaSelector schemas={schemas} selectedSchema="bang!" />);
-    });
-
-    it('should set the defaultValue to the selectedSchema', () => {
-      expect(sut.props().defaultValue).to.equal('bang!');
+    it('should render nothing', () => {
+      expect(sut).to.be.blank();
     });
   });
 
@@ -76,14 +68,14 @@ describe('<MessageSchemaSelector />', () => {
     const handleChange = sinon.spy();
 
     beforeEach(() => {
-      const schemas = ['intern-01', 'intern-02'];
+      const { messages } = fakeMeshbluDevice.schemas;
       const mockEvent = {
         target: {
           value: 'intern-01',
         },
       };
 
-      sut = shallow(<MessageSchemaSelector schemas={schemas} onChange={handleChange} />);
+      sut = shallow(<MessageSchemaSelector messages={messages} onChange={handleChange} />);
       sut.simulate('change', mockEvent);
     });
 

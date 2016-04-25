@@ -3,17 +3,17 @@ import chaiEnzyme from 'chai-enzyme';
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import ConfigureSchemaForm from './ConfigureSchemaForm';
+import SchemaContainer from './SchemaContainer';
 
 import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
 
 chai.use(chaiEnzyme());
 
-describe('<ConfigureSchemaForm />', () => {
+describe('<SchemaContainer />', () => {
   let sut;
 
   beforeEach(() => {
-    sut = shallow(<ConfigureSchemaForm />);
+    sut = shallow(<SchemaContainer />);
   });
 
   it('should exist', () => {
@@ -23,7 +23,7 @@ describe('<ConfigureSchemaForm />', () => {
   describe('when given a valid schema', () => {
     beforeEach(() => {
       sut = shallow(
-        <ConfigureSchemaForm schema={fakeMeshbluDevice.schemas.configure} />
+        <SchemaContainer schema={fakeMeshbluDevice.schemas.configure} />
       );
     });
 
@@ -34,7 +34,7 @@ describe('<ConfigureSchemaForm />', () => {
 
   describe('when given no schema', () => {
     beforeEach(() => {
-      sut = mount(<ConfigureSchemaForm />);
+      sut = mount(<SchemaContainer />);
     });
 
     it('should set default prop', () => {

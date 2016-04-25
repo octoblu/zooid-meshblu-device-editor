@@ -2,8 +2,7 @@ import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-  schemas: PropTypes.array.isRequired,
-  selectedSchema: PropTypes.string,
+  messages: PropTypes.array.isRequired,
   onChange: PropTypes.func,
 };
 
@@ -11,16 +10,17 @@ const defaultProps = {
   onChange: _.noop,
 };
 
-const MessageSchemaSelector = ({ schemas, selectedSchema, onChange }) => {
-  if (!schemas) return null;
+const MessageSchemaSelector = ({ messages, onChange }) => {
+  if (!messages) return null;
+  if (!_.isArray(messages)) return null;
 
-  const options = _.map(schemas, (title, index) => {
-    return <option value={title} key={index}>{title}</option>;
+  const options = _.map(messages, (message, index) => {
+    const { title } = message;
+    return <option value={index} key={index}>{title}</option>;
   });
 
   return (
     <select
-      defaultValue={selectedSchema}
       className="MessageSchemaSelector"
       onChange={(e) => onChange(e.target.value)}
     >

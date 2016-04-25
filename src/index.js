@@ -4,13 +4,26 @@ import { Validator } from 'jsonschema';
 
 import ErrorMessages from './ErrorMessages/ErrorMessages';
 import SchemaSelector from './SchemaSelector/SchemaSelector';
-import ConfigureSchemaForm from './ConfigureSchemaForm/ConfigureSchemaForm';
-import MessagesSchemaForm from './MessagesSchemaForm/MessagesSchemaForm';
+import SchemaContainer from './SchemaContainer/SchemaContainer';
+import MessageSchemaContainer from './MessageSchemaContainer/MessageSchemaContainer';
 
 import validationSchema from './validation-schema.json';
 
 const propTypes = {
   device: PropTypes.object.isRequired,
+};
+
+const defaultProps = {
+  schemaSelectorOptions: [
+    {
+      key: 'configure',
+      label: 'Configuration',
+    },
+    {
+      key: 'messages',
+      label: 'Messaging',
+    },
+  ],
 };
 
 export default class MeshbluDeviceEditor extends Component {
@@ -64,14 +77,14 @@ export default class MeshbluDeviceEditor extends Component {
     });
   }
 
-  renderSchemaForm() {
+  renderSchemaContainer() {
     const { selectedSchema, selectedSchemaKey } = this.state;
 
     if (selectedSchemaKey === 'messages') {
-      return <MessagesSchemaForm schema={selectedSchema} />;
+      return <MessageSchemaContainer messages={selectedSchema} />;
     }
 
-    return <ConfigureSchemaForm schema={selectedSchema} />;
+    return <SchemaContainer schema={selectedSchema} />;
   }
 
   render() {
@@ -87,11 +100,11 @@ export default class MeshbluDeviceEditor extends Component {
           onChange={this.handleSchemaSelection}
         />
 
-      {this.renderSchemaForm()}
-
+        {this.renderSchemaContainer()}
       </div>
     );
   }
 }
 
-MeshbluDeviceEditor.propTypes = propTypes;
+MeshbluDeviceEditor.propTypes    = propTypes;
+MeshbluDeviceEditor.defaultProps = defaultProps;
