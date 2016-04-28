@@ -36,7 +36,7 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['babel'],
-        include: path.join(__dirname, 'index.js')
+        include: path.join(__dirname, 'src')
       }
     ]
   }
