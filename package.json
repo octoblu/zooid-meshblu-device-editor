@@ -1,6 +1,6 @@
 {
   "name": "zooid-meshblu-device-editor",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A React component for editing Meshblu devices.",
   "main": "dist/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "start": "node dev-server.js",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
-    "mocha": "NODE_ENV=test mocha test/.setup.js src/*.spec.js src/**/*.spec.js",
+    "mocha": "NODE_ENV=test mocha",
     "test": "npm run mocha",
     "test:watch": "npm run mocha -- -w -R mocha-multi --reporter-options spec=-,mocha-osx-reporter=-"
   },
