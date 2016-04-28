@@ -1,4 +1,3 @@
-
 .DS_Store
 
 # tmp/sample devices
@@ -35,5 +34,4 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-dist
 example/bundle.js
