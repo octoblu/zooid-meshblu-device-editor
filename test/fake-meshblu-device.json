@@ -5,7 +5,7 @@
     "hash": "m+ijSqpY09mvVW8Kj4WIpyFHBlTzQORLOnMiQkv1S14="
   },
   "schemas": {
-    "version": "3.0.0-RFC2",
+    "version": "1.0.0",
     "form": {
       "configure": {
         "my-default": {

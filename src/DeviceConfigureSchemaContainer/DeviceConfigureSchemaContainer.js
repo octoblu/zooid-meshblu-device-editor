@@ -1,16 +1,15 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 
-import OctobluDeviceSchemaTransmogrifier from 'exports?file!webpack-octoblu-device-schema-transmogrifier';
+import OctobluDeviceSchemaTransmogrifier from 'webpack-octoblu-device-schema-transmogrifier';
 import ConfigureSchemaContainer from '../ConfigureSchemaContainer/ConfigureSchemaContainer';
 
 const propTypes = {
-  device: PropTypes.object,
+  device: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  device: {},
   onSubmit: _.noop,
 };
 

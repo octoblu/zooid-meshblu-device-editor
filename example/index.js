@@ -6,6 +6,7 @@ import {
   DeviceConfigureSchemaContainer,
   ConfigureSchemaContainer,
   MessageSchemaContainer,
+  DeviceMessageSchemaContainer,
 } from '../src/index';
 
 import ExampleDevice from '../test/fake-meshblu-device.json';
@@ -69,7 +70,10 @@ class Example extends Component {
         </TabPanel>
 
         <TabPanel>
-          <div></div>
+          <DeviceMessageSchemaContainer
+            schemas={device.schemas}
+            onSubmit={this.handleMessage}
+          />
         </TabPanel>
       </Tabs>
     );
