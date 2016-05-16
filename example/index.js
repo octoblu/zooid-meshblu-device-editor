@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTabs from 'react-tabs';
 
-import { ConfigureSchemaContainer, MessageSchemaContainer } from '../src/index';
+import {
+  DeviceConfigureSchemaContainer,
+  ConfigureSchemaContainer,
+  MessageSchemaContainer,
+} from '../src/index';
 
 import ExampleDevice from '../test/fake-meshblu-device.json';
 
@@ -37,9 +41,18 @@ class Example extends Component {
     return (
       <Tabs>
         <TabList>
+          <Tab>Configuration Transmogrified</Tab>
           <Tab>Configuration</Tab>
+          <Tab>Messaging Transmogrified</Tab>
           <Tab>Messaging</Tab>
         </TabList>
+
+        <TabPanel>
+          <DeviceConfigureSchemaContainer
+            device={device}
+            onSubmit={this.handleMessage}
+          />
+        </TabPanel>
 
         <TabPanel>
           <ConfigureSchemaContainer
@@ -53,6 +66,10 @@ class Example extends Component {
             schemas={device.schemas}
             onSubmit={this.handleMessage}
           />
+        </TabPanel>
+
+        <TabPanel>
+          <div></div>
         </TabPanel>
       </Tabs>
     );

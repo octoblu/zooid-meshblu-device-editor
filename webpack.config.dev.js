@@ -40,6 +40,10 @@ module.exports = {
         loader: "json-loader"
       },
       {
+        test: /\.coffee$/,
+        loader: "coffee-loader"
+      },
+      {
         test: /\.jpg$/,
         loader: "url-loader?limit=100000&minetype=image/jpg"
       },
