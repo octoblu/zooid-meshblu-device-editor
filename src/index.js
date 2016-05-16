@@ -1,4 +1,4 @@
-import SchemaContainer from './SchemaContainer/SchemaContainer';
+import ConfigureSchemaContainer from './ConfigureSchemaContainer/ConfigureSchemaContainer';
 import MessageSchemaContainer from './MessageSchemaContainer/MessageSchemaContainer';
 
-export { SchemaContainer, MessageSchemaContainer };
+export { ConfigureSchemaContainer, MessageSchemaContainer };

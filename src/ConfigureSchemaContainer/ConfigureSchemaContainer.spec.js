@@ -3,16 +3,16 @@ import chaiEnzyme from 'chai-enzyme';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import MessageSchemaContainer from './MessageSchemaContainer';
+import ConfigureSchemaContainer from './ConfigureSchemaContainer';
 import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
 
 chai.use(chaiEnzyme());
 
-describe('<MessageSchemaContainer />', () => {
+describe('<ConfigureSchemaContainer />', () => {
   let sut;
 
   beforeEach(() => {
-    sut = shallow(<MessageSchemaContainer />);
+    sut = shallow(<ConfigureSchemaContainer />);
   });
 
   it('should exist', () => {
@@ -22,7 +22,7 @@ describe('<MessageSchemaContainer />', () => {
 
   describe('When given messages as prop', () => {
     beforeEach(() => {
-      sut = shallow(<MessageSchemaContainer schemas={fakeMeshbluDevice.schemas} />);
+      sut = shallow(<ConfigureSchemaContainer schemas={fakeMeshbluDevice.schemas} />);
     });
 
     it('should set the selected schema to the first message', () => {

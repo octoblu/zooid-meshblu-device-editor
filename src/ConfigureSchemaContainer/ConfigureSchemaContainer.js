@@ -5,20 +5,20 @@ import SchemaContainer from '../SchemaContainer/SchemaContainer';
 import SchemaSelector from '../SchemaSelector/SchemaSelector';
 
 const propTypes = {
-  message: PropTypes.object,
+  device: PropTypes.object,
   schemas: PropTypes.shape({
-    message: PropTypes.object.isRequired,
+    configure: PropTypes.object.isRequired,
   }),
   onSubmit: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  message: {},
+  device: {},
   schemas: {},
   onSubmit: _.noop,
 };
 
-class MessageSchemaContainer extends Component {
+class ConfigureSchemaContainer extends Component {
   constructor(props) {
     super(props);
     this.state = { selected: null };
@@ -27,7 +27,7 @@ class MessageSchemaContainer extends Component {
 
   componentWillMount() {
     const { schemas } = this.props;
-    this.setState({ selected: _.first(_.keys(schemas.message)) });
+    this.setState({ selected: _.first(_.keys(schemas.configure)) });
   }
 
   handleChange(selected) {
@@ -35,26 +35,26 @@ class MessageSchemaContainer extends Component {
   }
 
   render() {
-    const { message, schemas, onSubmit } = this.props;
+    const { device, schemas, onSubmit } = this.props;
     const { selected } = this.state;
 
-    const schemaMessage = schemas.message;
+    const schemaConfigure = schemas.configure;
     let selectedSchema = {};
 
-    if(selected && schemaMessage[selected]) {
-      selectedSchema = schemaMessage[selected];
+    if(selected && schemaConfigure[selected]) {
+      selectedSchema = schemaConfigure[selected];
     }
 
     return (
       <div>
-        <SchemaSelector schemas={schemaMessage} selected={selected} onChange={this.handleChange} />
-        <SchemaContainer schema={selectedSchema} onSubmit={onSubmit} />
+        <SchemaSelector schemas={schemaConfigure} selected={selected} onChange={this.handleChange} />
+        <SchemaContainer schema={selectedSchema} model={device} onSubmit={onSubmit} />
       </div>
     );
   }
 }
 
-MessageSchemaContainer.defaultProps = defaultProps;
-MessageSchemaContainer.propTypes = propTypes;
+ConfigureSchemaContainer.defaultProps = defaultProps;
+ConfigureSchemaContainer.propTypes = propTypes;
 
-export default MessageSchemaContainer;
+export default ConfigureSchemaContainer;

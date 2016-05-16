@@ -1,10 +1,9 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
-import classNames from 'classnames';
 
 const propTypes = {
-  schemaKeys: PropTypes.array.isRequired,
-  selectedSchemaKey: PropTypes.string,
+  schemas: PropTypes.object.isRequired,
+  selected: PropTypes.string,
   onChange: PropTypes.func,
 };
 
@@ -12,32 +11,24 @@ const defaultProps = {
   onChange: _.noop,
 };
 
-const SchemaSelector = ({ schemaKeys, selectedSchemaKey, onChange }) => {
-  if (_.isEmpty(schemaKeys)) return null;
+const SchemaSelector = ({ schemas, selected, onChange }) => {
+  if (!schemas) return null;
 
-  const Buttons = _.map(schemaKeys, (schemaKey, index) => {
-    const isSelected = (schemaKey === selectedSchemaKey);
-
-    const classes = classNames(
-      'SchemaSelector-button',
-      { 'is-active': isSelected }
-    );
-
-    return (
-      <button
-        onClick={() => onChange(schemaKey)}
-        key={index}
-        className={classes}
-      >
-        {schemaKey}
-      </button>
-    );
+  const options = _.map(schemas, (schema, schemaKey) => {
+    let { title } = schema;
+    if(!title) {
+      title = schemaKey;
+    }
+    return <option value={schemaKey} key={schemaKey}>{title}</option>;
   });
 
   return (
-    <div className="SchemaSelector">
-      {Buttons}
-    </div>
+    <select
+      className="SchemaSelector"
+      value={selected}
+      onChange={(e) => onChange(e.target.value)}>
+      {options}
+    </select>
   );
 };
 

@@ -5,53 +5,69 @@
     "hash": "m+ijSqpY09mvVW8Kj4WIpyFHBlTzQORLOnMiQkv1S14="
   },
   "schemas": {
-    "version": "1.0.0",
-    "messages": [
-      {
-        "title": "YoAge",
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
+    "version": "3.0.0-RFC2",
+    "form": {
+      "configure": {
+        "my-default": {
+          "angular": {
+            "url": "http://somewhere/over/the/rainbow"
           }
         }
       },
-      {
-        "title": "YoDeets",
-        "type": "object",
-        "properties": {
-          "age": {
-            "type": "integer",
-            "title": "Age"
-          },
-          "bio": {
-            "type": "string",
-            "title": "Bio"
+      "message": {
+        "example-01": {
+          "angular": {
+            "schema": ["*"]
           }
         }
       }
-    ],
+    },
     "configure": {
-      "type": "object",
-      "properties": {
-        "command" : {
-          "type" : "object",
-          "properties" : {
-            "action" : {
-              "type" : "string",
-              "enum" : ["vibrate", "requestBlueToothStrength", "zeroOrientation"],
-              "default" : "vibrate"
-            },
-            "vibrationLength" : {
-              "type" : "string",
-              "enum" : ["short", "medium", "long"],
-              "default" : "short"
+      "my-default-config": {
+        "url": null,
+        "type": "object",
+        "properties": {
+          "options": {
+            "type" : "object",
+            "properties" : {
+              "example" : {
+                "type" : "string"
+              }
             }
           }
+        },
+        "formSchema": {
+          "angular": "configure.my-default.angular"
         }
+      }
+    },
+    "message": {
+      "example-message-01": {
+        "type": "object",
+        "properties": {
+          "example-opt": {
+            "type": "string"
+          },
+          "another-example-opt":{
+            "type": "string"
+          }
+        },
+        "formSchema": {
+          "angular": "message.example-01.angular"
+        },
+        "required": ["example-opt", "another-example-opt"]
+      },
+      "example-message-02": {
+        "type": "object",
+        "properties": {
+          "some-opt": {
+            "type": "string"
+          },
+          "another-some-opt":{
+            "type": "string"
+          }
+        },
+        "required": ["some-opt", "another-some-opt"]
       }
     }
   },
