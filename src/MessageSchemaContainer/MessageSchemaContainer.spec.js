@@ -11,16 +11,7 @@ chai.use(chaiEnzyme());
 describe('<MessageSchemaContainer />', () => {
   let sut;
 
-  beforeEach(() => {
-    sut = shallow(<MessageSchemaContainer />);
-  });
-
-  it('should exist', () => {
-    expect(sut).to.be.present();
-  });
-
-
-  describe('When given messages as prop', () => {
+  describe('When given schemas as prop', () => {
     beforeEach(() => {
       sut = shallow(<MessageSchemaContainer schemas={fakeMeshbluDevice.schemas} />);
     });

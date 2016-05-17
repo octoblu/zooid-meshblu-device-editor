@@ -6,6 +6,7 @@ import SchemaSelector from '../SchemaSelector/SchemaSelector';
 
 const propTypes = {
   message: PropTypes.object,
+  selected: PropTypes.string,
   schemas: PropTypes.shape({
     message: PropTypes.object.isRequired,
   }),
@@ -26,8 +27,20 @@ class MessageSchemaContainer extends Component {
   }
 
   componentWillMount() {
-    const { schemas } = this.props;
-    this.setState({ selected: _.first(_.keys(schemas.message)) });
+    const { schemas, selected } = this.props;
+    if(selected) {
+      this.setState({ selected });
+      return
+    }
+    const firstSchemaKey = _.head(_.keys(schemas.message))
+    this.setState({ selected: firstSchemaKey })
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { selected } = newProps
+    if(selected) {
+      this.setState({ selected });
+    }
   }
 
   handleChange(selected) {
@@ -45,10 +58,14 @@ class MessageSchemaContainer extends Component {
       selectedSchema = schemaMessage[selected];
     }
 
+    const wrappedOnSubmit = (message) => {
+      onSubmit({ message, selected })
+    }
+
     return (
       <div>
         <SchemaSelector schemas={schemaMessage} selected={selected} onChange={this.handleChange} />
-        <SchemaContainer schema={selectedSchema} onSubmit={onSubmit} />
+        <SchemaContainer schema={selectedSchema} onSubmit={wrappedOnSubmit} />
       </div>
     );
   }

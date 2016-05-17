@@ -41,4 +41,5 @@ describe('<SchemaContainer />', () => {
       expect(sut.prop('schema')).to.deep.equal({});
     });
   });
+
 });

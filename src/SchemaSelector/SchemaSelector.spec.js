@@ -14,14 +14,6 @@ chai.use(chaiEnzyme());
 describe('<SchemaSelector />', () => {
   let sut;
 
-  beforeEach(() => {
-    sut = shallow(<SchemaSelector />);
-  });
-
-  it('should exist', () => {
-    expect(sut).to.be.present();
-  });
-
   describe('when given schemas', () => {
     const { schemas } = fakeMeshbluDevice;
     const { message } = schemas;

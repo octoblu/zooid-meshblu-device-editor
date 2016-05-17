@@ -25,14 +25,14 @@ class Example extends Component {
     this.setState({ device });
   }
 
-  handleConfig(model) {
-    console.log('Config', model);
-    const newDevice = _.assign({}, this.state.device, model);
+  handleConfig({ properties, selected }) {
+    console.log('config', { properties, selected });
+    const newDevice = _.assign({}, this.state.device, properties);
     this.setState({ device: newDevice })
   }
 
-  handleMessage(message) {
-    console.log('Message', message);
+  handleMessage({ message, selected }) {
+    console.log('message', { message, selected });
   }
 
   render() {
@@ -64,6 +64,14 @@ class Example extends Component {
             onSubmit={this.handleConfig}
           />
         </TabPanel>
+        
+        <TabPanel>
+          <DeviceMessageSchemaContainer
+            device={device}
+            onSubmit={this.handleMessage}
+            selected="example-message-02"
+          />
+        </TabPanel>
 
         <TabPanel>
           <MessageSchemaContainer
@@ -72,12 +80,6 @@ class Example extends Component {
           />
         </TabPanel>
 
-        <TabPanel>
-          <DeviceMessageSchemaContainer
-            device={device}
-            onSubmit={this.handleMessage}
-          />
-        </TabPanel>
       </Tabs>
     );
   }

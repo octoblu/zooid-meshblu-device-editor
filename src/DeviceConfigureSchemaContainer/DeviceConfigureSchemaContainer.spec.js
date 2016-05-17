@@ -12,22 +12,13 @@ chai.use(chaiEnzyme());
 describe('<DeviceConfigureSchemaContainer />', () => {
   let sut;
 
-  beforeEach(() => {
-    sut = shallow(<DeviceConfigureSchemaContainer />);
-  });
-
-  it('should exist', () => {
-    expect(sut).to.be.present();
-  });
-
-
-  describe('When given messages as prop', () => {
+  describe('When given device as prop', () => {
     beforeEach(() => {
-      sut = shallow(<DeviceConfigureSchemaContainer device={fakeMeshbluDevice} onSubmit={_.noop}/>);
+      sut = shallow(<DeviceConfigureSchemaContainer device={fakeMeshbluDevice} />);
     });
 
-    it('should set the selected schema to the first message', () => {
-      expect(sut.state('selected')).to.deep.equal('example-message-01');
+    it('should be present', () => {
+      expect(sut).to.be.present();
     });
   });
 });

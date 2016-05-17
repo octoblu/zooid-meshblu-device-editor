@@ -7,6 +7,7 @@ import ConfigureSchemaContainer from '../ConfigureSchemaContainer/ConfigureSchem
 const propTypes = {
   device: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  selected: PropTypes.string,
 };
 
 const defaultProps = {
@@ -15,10 +16,15 @@ const defaultProps = {
 
 class DeviceConfigureSchemaContainer extends Component {
   render() {
-    const { device, onSubmit } = this.props;
+    const { device, onSubmit, selected } = this.props;
     const transmogrified = new OctobluDeviceSchemaTransmogrifier(device).transmogrify();
     return (
-      <ConfigureSchemaContainer device={transmogrified} schemas={transmogrified.schemas} onSubmit={onSubmit} />
+      <ConfigureSchemaContainer
+        device={transmogrified}
+        schemas={transmogrified.schemas}
+        onSubmit={onSubmit}
+        selected={selected}
+        />
     );
   }
 }
