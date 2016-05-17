@@ -18,7 +18,7 @@ class DeviceConfigureSchemaContainer extends Component {
     const { device, onSubmit } = this.props;
     const transmogrified = new OctobluDeviceSchemaTransmogrifier(device).transmogrify();
     return (
-      <ConfigureSchemaContainer device={transmogrified} schemas={transmogrified} onSubmit={onSubmit} />
+      <ConfigureSchemaContainer device={transmogrified} schemas={transmogrified.schemas} onSubmit={onSubmit} />
     );
   }
 }

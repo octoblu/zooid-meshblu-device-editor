@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import ReactDOM from 'react-dom';
 import ReactTabs from 'react-tabs';
 
 import {
   DeviceConfigureSchemaContainer,
   ConfigureSchemaContainer,
-  MessageSchemaContainer,
   DeviceMessageSchemaContainer,
+  MessageSchemaContainer,
 } from '../src/index';
 
 import ExampleDevice from '../test/fake-meshblu-device.json';
@@ -26,6 +27,8 @@ class Example extends Component {
 
   handleConfig(model) {
     console.log('Config', model);
+    const newDevice = _.assign({}, this.state.device, model);
+    this.setState({ device: newDevice })
   }
 
   handleMessage(message) {
@@ -51,14 +54,14 @@ class Example extends Component {
         <TabPanel>
           <DeviceConfigureSchemaContainer
             device={device}
-            onSubmit={this.handleMessage}
+            onSubmit={this.handleConfig}
           />
         </TabPanel>
 
         <TabPanel>
           <ConfigureSchemaContainer
             schemas={device.schemas}
-            onSubmit={this.handleMessage}
+            onSubmit={this.handleConfig}
           />
         </TabPanel>
 
@@ -71,7 +74,7 @@ class Example extends Component {
 
         <TabPanel>
           <DeviceMessageSchemaContainer
-            schemas={device.schemas}
+            device={device}
             onSubmit={this.handleMessage}
           />
         </TabPanel>
