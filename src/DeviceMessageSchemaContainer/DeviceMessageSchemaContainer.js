@@ -19,6 +19,9 @@ class DeviceMessageSchemaContainer extends Component {
   render() {
     const { device, message, onSubmit, selected } = this.props;
     const transmogrified = new OctobluDeviceSchemaTransmogrifier(device).transmogrify();
+    if(_.isEmpty(_.get(transmogrified, 'schemas.message'))) {
+      return <h3>Device does not contain a message schema.</h3>;
+    }
     return (
       <MessageSchemaContainer
         message={message}

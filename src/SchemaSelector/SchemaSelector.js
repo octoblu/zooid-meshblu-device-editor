@@ -12,8 +12,10 @@ const defaultProps = {
 };
 
 const SchemaSelector = ({ schemas, selected, onChange }) => {
-  if (!schemas) return null;
-
+  const keys = _.keys(schemas)
+  if(_.size(keys) < 2) {
+    return null
+  }
   const options = _.map(schemas, (schema, schemaKey) => {
     let { title } = schema;
     if(!title) {
@@ -24,7 +26,7 @@ const SchemaSelector = ({ schemas, selected, onChange }) => {
 
   return (
     <select
-      className="SchemaSelector"
+      className="SchemaSelector form-control"
       value={selected}
       onChange={(e) => onChange(e.target.value)}>
       {options}

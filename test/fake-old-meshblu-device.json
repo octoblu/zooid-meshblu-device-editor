@@ -1,0 +1,29 @@
+{
+  "type": "device:whatever",
+  "meshblu": {
+    "updatedAt": "2016-04-14T14:08:23-07:00",
+    "hash": "m+ijSqpY09mvVW8Kj4WIpyFHBlTzQORLOnMiQkv1S14="
+  },
+  "optionsSchema": {
+    "type" : "object",
+    "properties" : {
+      "example" : {
+        "type" : "string"
+      }
+    }
+  },
+  "messageSchema": {
+    "type": "object",
+    "properties": {
+      "example-opt": {
+        "type": "string"
+      },
+      "another-example-opt":{
+        "type": "string"
+      }
+    }
+  },
+  "uuid": "uui-d",
+  "online": false,
+  "token": "$token$"
+}

@@ -18,6 +18,11 @@ class DeviceConfigureSchemaContainer extends Component {
   render() {
     const { device, onSubmit, selected } = this.props;
     const transmogrified = new OctobluDeviceSchemaTransmogrifier(device).transmogrify();
+
+    if(_.isEmpty(_.get(transmogrified, 'schemas.configure'))) {
+      return <h3>Device does not contain a configure schema.</h3>;
+    }
+
     return (
       <ConfigureSchemaContainer
         device={transmogrified}

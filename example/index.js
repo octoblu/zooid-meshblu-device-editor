@@ -11,6 +11,7 @@ import {
 } from '../src/index';
 
 import ExampleDevice from '../test/fake-meshblu-device.json';
+import OldDevice from '../test/fake-old-meshblu-device.json';
 
 class Example extends Component {
   constructor(props) {
@@ -22,7 +23,11 @@ class Example extends Component {
 
   componentWillMount() {
     const device = ExampleDevice;
-    this.setState({ device });
+    const oldDevice = OldDevice;
+    const emptySchemaDevice = {
+      uuid: 'hello'
+    }
+    this.setState({ device, oldDevice, emptySchemaDevice });
   }
 
   handleConfig({ properties, selected }) {
@@ -36,7 +41,7 @@ class Example extends Component {
   }
 
   render() {
-    const { device } = this.state;
+    const { device, oldDevice, emptySchemaDevice } = this.state;
 
     if (!device) return <h1>Loading</h1>;
 
@@ -47,13 +52,20 @@ class Example extends Component {
         <TabList>
           <Tab>Configuration Transmogrified</Tab>
           <Tab>Configuration</Tab>
+          <Tab>Configuration Old Device</Tab>
           <Tab>Messaging Transmogrified</Tab>
           <Tab>Messaging</Tab>
+          <Tab>Messaging Old Device</Tab>
         </TabList>
 
         <TabPanel>
           <DeviceConfigureSchemaContainer
             device={device}
+            onSubmit={this.handleConfig}
+          />
+          <h1>Or when no schema is passed</h1>
+          <DeviceConfigureSchemaContainer
+            device={emptySchemaDevice}
             onSubmit={this.handleConfig}
           />
         </TabPanel>
@@ -64,12 +76,24 @@ class Example extends Component {
             onSubmit={this.handleConfig}
           />
         </TabPanel>
-        
+
+        <TabPanel>
+          <DeviceConfigureSchemaContainer
+            device={oldDevice}
+            onSubmit={this.handleConfig}
+          />
+        </TabPanel>
+
         <TabPanel>
           <DeviceMessageSchemaContainer
             device={device}
             onSubmit={this.handleMessage}
             selected="example-message-02"
+          />
+          <h1>Or when no schema is passed</h1>
+          <DeviceMessageSchemaContainer
+            device={emptySchemaDevice}
+            onSubmit={this.handleConfig}
           />
         </TabPanel>
 
@@ -77,6 +101,13 @@ class Example extends Component {
           <MessageSchemaContainer
             schemas={device.schemas}
             onSubmit={this.handleMessage}
+          />
+        </TabPanel>
+
+        <TabPanel>
+          <DeviceMessageSchemaContainer
+            device={oldDevice}
+            onSubmit={this.handleConfig}
           />
         </TabPanel>
 
