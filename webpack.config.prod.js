@@ -41,6 +41,10 @@ module.exports = {
       {
         test: /\.coffee$/,
         loader: "coffee-loader"
+      },
+      {
+        test:   /\.css$/,
+        loader: "style-loader!css-loader!postcss-loader"
       }
     ]
   }

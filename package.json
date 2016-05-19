@@ -1,6 +1,6 @@
 {
   "name": "zooid-meshblu-device-editor",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "A React component for editing Meshblu devices.",
   "main": "dist/index.js",
   "scripts": {
