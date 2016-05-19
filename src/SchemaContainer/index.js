@@ -10,7 +10,6 @@ const propTypes = {
 
 const defaultProps = {
   model: {},
-  schema: {},
   onSubmit: _.noop,
 };
 
@@ -20,6 +19,9 @@ const SchemaContainer = ({ model, schema, onSubmit }) => {
     const filteredFormData = _.pick(formData, _.keys(idSchema));
     onSubmit(filteredFormData);
   };
+  if(!schema) {
+    return <h3>Missing Schema</h3>
+  }
   return (
     <div className="SchemaForm">
       <ReactSchemaForm

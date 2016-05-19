@@ -3,7 +3,7 @@ import chaiEnzyme from 'chai-enzyme';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ConfigureSchemaContainer from './ConfigureSchemaContainer';
+import ConfigureSchemaContainer from './';
 import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
 
 chai.use(chaiEnzyme());

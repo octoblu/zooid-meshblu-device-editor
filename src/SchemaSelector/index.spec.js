@@ -5,7 +5,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 
-import SchemaSelector from './SchemaSelector';
+import SchemaSelector from './';
 
 import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
 

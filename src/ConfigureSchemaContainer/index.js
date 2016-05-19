@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 
-import SchemaContainer from '../SchemaContainer/SchemaContainer';
-import SchemaSelector from '../SchemaSelector/SchemaSelector';
+import SchemaContainer from '../SchemaContainer';
+import SchemaSelector from '../SchemaSelector';
 
 const propTypes = {
   device: PropTypes.object,

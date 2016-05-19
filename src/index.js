@@ -1,11 +1,15 @@
-import ConfigureSchemaContainer from './ConfigureSchemaContainer/ConfigureSchemaContainer';
-import DeviceConfigureSchemaContainer from './DeviceConfigureSchemaContainer/DeviceConfigureSchemaContainer';
-import MessageSchemaContainer from './MessageSchemaContainer/MessageSchemaContainer';
-import DeviceMessageSchemaContainer from './DeviceMessageSchemaContainer/DeviceMessageSchemaContainer';
+import ConfigureSchemaContainer from './ConfigureSchemaContainer';
+import DeviceConfigureSchemaContainer from './DeviceConfigureSchemaContainer';
+import MessageSchemaContainer from './MessageSchemaContainer';
+import DeviceMessageSchemaContainer from './DeviceMessageSchemaContainer';
+import SchemaContainer from './SchemaContainer';
+import SchemaSelector from './SchemaSelector';
 
 export {
   ConfigureSchemaContainer,
   MessageSchemaContainer,
   DeviceConfigureSchemaContainer,
   DeviceMessageSchemaContainer,
+  SchemaContainer,
+  SchemaSelector,
 };

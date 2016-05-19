@@ -4,7 +4,7 @@ import chaiEnzyme from 'chai-enzyme';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import DeviceMessageSchemaContainer from './DeviceMessageSchemaContainer';
+import DeviceMessageSchemaContainer from './';
 import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
 
 chai.use(chaiEnzyme());
@@ -19,5 +19,5 @@ describe('<DeviceMessageSchemaContainer />', () => {
   it('should exist', () => {
     expect(sut).to.be.present();
   });
-  
+
 });
