@@ -10,6 +10,7 @@ const propTypes = {
 
 const defaultProps = {
   model: {},
+  schema: {},
   onSubmit: _.noop,
 };
 

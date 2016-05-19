@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
 import Select from 'react-select-plus';
-import 'react-select-plus/dist/react-select-plus.min.css';
-import './index.css';
 
 const propTypes = {
   schemas: PropTypes.object.isRequired,
@@ -48,6 +46,7 @@ const SchemaSelector = ({ schemas, selected, onChange }) => {
       <Select
         className="SchemaSelector"
         dropdownClassName="form-control"
+        optionClassName="SchemaSelector--option"
         options={groupedOptions}
         value={selected}
         clearable={false}
