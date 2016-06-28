@@ -11,6 +11,7 @@ const propTypes = {
     message: PropTypes.object.isRequired,
   }),
   onSubmit: PropTypes.func.isRequired,
+  selectableDevices: PropTypes.array,
 };
 
 const defaultProps = {
@@ -48,7 +49,7 @@ class MessageSchemaContainer extends Component {
   }
 
   render() {
-    const { message, schemas, onSubmit } = this.props;
+    const { message, schemas, onSubmit, selectableDevices } = this.props;
     const { selected } = this.state;
 
     const schemaMessage = schemas.message;
@@ -64,8 +65,8 @@ class MessageSchemaContainer extends Component {
 
     return (
       <div>
-        <SchemaSelector schemas={schemaMessage} selected={selected} onChange={this.handleChange} />
-        <SchemaContainer schema={selectedSchema} onSubmit={wrappedOnSubmit} />
+        <SchemaSelector schemas={schemaMessage} selectableDevices={selectableDevices} selected={selected} onChange={this.handleChange} />
+        <SchemaContainer schema={selectedSchema} selectableDevices={selectableDevices} onSubmit={wrappedOnSubmit} />
       </div>
     );
   }

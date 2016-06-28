@@ -11,6 +11,7 @@ const propTypes = {
     configure: PropTypes.object.isRequired,
   }),
   onSubmit: PropTypes.func.isRequired,
+  selectableDevices: PropTypes.array,
 };
 
 const defaultProps = {
@@ -48,7 +49,7 @@ class ConfigureSchemaContainer extends Component {
   }
 
   render() {
-    const { device, schemas, onSubmit } = this.props;
+    const { device, selectableDevices, schemas, onSubmit } = this.props;
     const { selected } = this.state;
 
     const schemaConfigure = schemas.configure;
@@ -64,8 +65,8 @@ class ConfigureSchemaContainer extends Component {
 
     return (
       <div>
-        <SchemaSelector schemas={schemaConfigure} selected={selected} onChange={this.handleChange} />
-        <SchemaContainer schema={selectedSchema} model={device} onSubmit={wrappedOnSubmit} />
+        <SchemaSelector schemas={schemaConfigure} selected={selected} selectableDevices={selectableDevices} onChange={this.handleChange} />
+        <SchemaContainer schema={selectedSchema} model={device} selectableDevices={selectableDevices} onSubmit={wrappedOnSubmit} />
       </div>
     );
   }

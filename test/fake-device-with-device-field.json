@@ -1,0 +1,38 @@
+{
+  "type": "device:whatever",
+  "meshblu": {
+    "updatedAt": "2016-04-14T14:08:23-07:00",
+    "hash": "m+ijSqpY09mvVW8Kj4WIpyFHBlTzQORLOnMiQkv1S14="
+  },
+  "schemas": {
+    "version": "1.0.0",
+    "configure": {
+      "my-default-config": {
+        "x-form-schema": {
+          "angular": "message.example-01.angular"
+        },
+        "type": "object",
+        "properties": {
+          "options": {
+            "type" : "object",
+            "properties" : {
+              "example" : {
+                "type" : "string"
+              },
+              "bestFriendDevice" : {
+                "type" : "string",
+                "format": "meshblu-device",
+                "x-meshblu-device-filter": {
+                  "type": "wemo"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "uuid": "uui-d",
+  "online": false,
+  "token": "$token$"
+}

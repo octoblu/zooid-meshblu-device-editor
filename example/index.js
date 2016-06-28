@@ -11,7 +11,14 @@ import {
 } from '../src/index';
 
 import ExampleDevice from '../test/fake-meshblu-device.json';
+import ExampleDeviceWithDeviceField from '../test/fake-device-with-device-field.json';
 import OldDevice from '../test/fake-old-meshblu-device.json';
+
+const devices = [
+  {uuid: 1, name: 'TV', type: 'wemo'},
+  {uuid: 3, name: 'kill', type: 'wemo' },
+  {uuid: 2, name: 'Belly Button', type: 'anatomy'}
+]
 
 class Example extends Component {
   constructor(props) {
@@ -53,6 +60,8 @@ class Example extends Component {
           <Tab>Configuration Transmogrified</Tab>
           <Tab>Configuration</Tab>
           <Tab>Configuration Old Device</Tab>
+          <Tab>Configuration With a Device field</Tab>
+          <Tab>Configuration With a Device field and no devices</Tab>
           <Tab>Messaging Transmogrified</Tab>
           <Tab>Messaging</Tab>
           <Tab>Messaging Old Device</Tab>
@@ -85,6 +94,22 @@ class Example extends Component {
         </TabPanel>
 
         <TabPanel>
+          <ConfigureSchemaContainer
+            schemas={ExampleDeviceWithDeviceField.schemas}
+            onSubmit={this.handleConfig}
+            selectableDevices={devices}
+          />
+        </TabPanel>
+
+        <TabPanel>
+          <ConfigureSchemaContainer
+            schemas={ExampleDeviceWithDeviceField.schemas}
+            onSubmit={this.handleConfig}
+            selectableDevices={[]}
+          />
+        </TabPanel>
+
+        <TabPanel>
           <DeviceMessageSchemaContainer
             device={device}
             onSubmit={this.handleMessage}
@@ -110,6 +135,8 @@ class Example extends Component {
             onSubmit={this.handleConfig}
           />
         </TabPanel>
+
+
 
       </Tabs>
     );

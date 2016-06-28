@@ -9,6 +9,7 @@ const propTypes = {
   message: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
   selected: PropTypes.string,
+  selectableDevices: PropTypes.array,
 };
 
 const defaultProps = {
@@ -17,7 +18,7 @@ const defaultProps = {
 
 class DeviceMessageSchemaContainer extends Component {
   render() {
-    const { device, message, onSubmit, selected } = this.props;
+    const { device, message, onSubmit, selected, selectableDevices } = this.props;
     const transmogrified = new OctobluDeviceSchemaTransmogrifier(device).transmogrify();
     if(_.isEmpty(_.get(transmogrified, 'schemas.message'))) {
       return <h3>Device does not contain a message schema.</h3>;
@@ -26,6 +27,7 @@ class DeviceMessageSchemaContainer extends Component {
       <MessageSchemaContainer
         message={message}
         schemas={transmogrified.schemas}
+        selectableDevices={selectableDevices}
         onSubmit={onSubmit}
         selected={selected}
         />
