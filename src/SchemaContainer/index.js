@@ -18,7 +18,6 @@ const defaultProps = {
 }
 
 const SchemaContainer = ({ model, schema, onSubmit, selectableDevices }) => {
-
   const handleSubmit = (form) => {
     const { formData, idSchema } = form;
     const filteredFormData = _.pick(formData, _.keys(idSchema));
@@ -39,9 +38,9 @@ const SchemaContainer = ({ model, schema, onSubmit, selectableDevices }) => {
       onChange(device.uuid)
     }
 
-    if( _.isEmpty(selectableDevices) ) {
-      return <TextWidget id={id} value={value} required={required} onChange={onChange} schema={schema} />
-    }
+     // if( _.isEmpty(selectableDevices) ) {
+    //   return <TextWidget id={id} value={value} required={required} onChange={onChange} schema={schema} />
+    // }
 
     return (
       <MeshbluDevicePicker
