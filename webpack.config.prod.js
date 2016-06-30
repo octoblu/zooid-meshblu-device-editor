@@ -14,12 +14,7 @@ module.exports = {
     library: 'ZooidMeshbluDeviceEditor'
   },
   externals: {
-    react: {
-      root: 'React',
-      commonjs2: 'react',
-      commonjs: 'react',
-      amd: 'react'
-    }
+    react: 'React'
   },
   plugins: [
     new webpack.IgnorePlugin(/^(buffertools)$/), // unwanted "deeper" dependency
@@ -31,9 +26,9 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
-     compress: {
+      compress: {
        warnings: false
-     }
+      }
     })
   ],
   module: {

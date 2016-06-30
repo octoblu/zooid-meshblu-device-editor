@@ -17,7 +17,7 @@ import OldDevice from '../test/fake-old-meshblu-device.json';
 const devices = [
   {uuid: 1, name: 'TV', type: 'wemo'},
   {uuid: 3, name: 'kill', type: 'wemo' },
-  {uuid: 2, name: 'Belly Button', type: 'anatomy'}
+  {uuid: 2, name: 'Belly Button', type: 'anatomy'},
 ]
 
 class Example extends Component {
@@ -32,7 +32,7 @@ class Example extends Component {
     const device = ExampleDevice;
     const oldDevice = OldDevice;
     const emptySchemaDevice = {
-      uuid: 'hello'
+      uuid: 'hello',
     }
     this.setState({ device, oldDevice, emptySchemaDevice });
   }
@@ -135,9 +135,6 @@ class Example extends Component {
             onSubmit={this.handleConfig}
           />
         </TabPanel>
-
-
-
       </Tabs>
     );
   }

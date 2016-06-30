@@ -1,3 +1,7 @@
 .SchemaSelector--container {
   margin: 1rem 0.5rem;
 }
+
+.Select-menu-outer {
+  z-index: 9999;
+}
