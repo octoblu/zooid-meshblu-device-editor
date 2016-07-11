@@ -1,0 +1,214 @@
+.rjsf legend {
+  display: none;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.control-label {
+  font-family:"citrixsans-bold", sans-serif;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  border-radius: 2px;
+  border: 1px solid #E6EAED;
+  display: block;
+  padding: 0.6em 1em;
+  margin-bottom: 0;
+  width: 100%;
+  background:#FFF;
+
+  font-size: 16px;
+  font-family: "citrixsans-regular", sans-serif;
+
+  -webkit-appearance: none;
+}
+
+.form-control--unstyled {
+  border-color: transparent;
+  background: transparent;
+}
+
+.form-control:focus {
+  border: 1px solid #14568F;
+  outline: none;
+  background-color: #f8fdff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(19, 133, 229, 0.1);
+  transition: all 0.2s ease-in;
+}
+
+.form-control--unstyled:focus {
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.form-control:disabled {
+  background-color: #F3F6F7;
+  cursor: not-allowed;
+}
+
+.form-control:required:focus {
+ border: 1px solid #fec57b;
+ background-color: #fff9f2;
+}
+
+
+.btn {
+  display: inline-block;
+  border:none;
+  border-radius: 2px;
+  padding: 0.6em 1em;
+
+  background: #E3E3E3;
+
+  font-size: 16px;
+  font-family: "citrixsans-regular", Arial, Helvetica, sans-serif;
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+  transition-delay: 0;
+  transition-duration: .3s;
+  transition-timing-function: ease-in;
+  transition-property: background, border-color;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn[disabled],
+.btn--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-info {
+  background: #14568F;
+  color: white;
+}
+
+.btn-info:hover {
+  background: #104B7E;
+}
+
+.btn--approve {
+  background: #008000;
+  color: white;
+}
+
+.btn--approve:hover {
+  background: #017401;
+}
+
+.btn--danger {
+  background: #CA2329;
+  color: white;
+}
+
+.btn--danger:hover {
+  background: #B72126;
+}
+
+.btn--neutral {
+  background: #6e798b;
+  color: white;
+}
+
+.btn--hollow-primary {
+  border: 2px solid #14568F;
+  color: #14568F;
+  padding: 10px 22px;
+  background: transparent;
+}
+
+.btn--hollow-primary:hover {
+  background: rgba(45, 114, 217, 0.07);
+}
+
+.btn--hollow-approve {
+  border: 2px solid #008000;
+  color: #008000;
+  padding: 10px 22px;
+  background: transparent;
+}
+
+.btn--hollow-approve:hover {
+  background: rgba(0, 128, 0, 0.07);
+}
+
+.btn--hollow-danger {
+  border: 2px solid #CA2329;
+  color: #CA2329;
+  padding: 10px 22px;
+  background: transparent;
+}
+
+.btn--hollow-danger:hover {
+  background: rgba(202, 35, 41, 0.07);
+}
+
+.btn--hollow-neutral {
+  border: 2px solid #6e798b;
+  color: #6e798b;
+  padding: 10px 22px;
+  background: transparent;
+}
+
+.btn--hollow-neutral:hover {
+  background: rgba(110, 121, 139, 0.1);
+}
+
+.btn--no-style {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+
+  color: #14568F;
+  text-align: left;
+
+  background: transparent;
+}
+
+.btn--no-style:hover {
+  color: #156889;
+}
+
+.btn--small {
+  font-size: 12px;
+}
+
+.btn--large {
+  font-size: 22px;
+}
+
+.btn--jumbo {
+  width: 100%;
+  padding: 24px;
+
+  color: #FFF;
+  font-size: 21px;
+  font-family: 'citrixsans-semibold', sans-serif;
+  text-decoration: none;
+
+  background: #0091de;
+}
+
+.btn--jumbo:hover {
+  background: #0075c4;
+  color: #FFF;
+}

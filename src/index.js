@@ -7,6 +7,7 @@ import SchemaSelector from './SchemaSelector';
 
 import 'react-select-plus/dist/react-select-plus.min.css';
 import './SchemaSelector/index.css';
+import './styles.css';
 
 export {
   ConfigureSchemaContainer,
