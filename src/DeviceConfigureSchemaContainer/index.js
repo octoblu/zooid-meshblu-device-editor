@@ -1,27 +1,27 @@
-import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
+import _ from 'lodash'
+import React, { Component, PropTypes } from 'react'
 
-import OctobluDeviceSchemaTransmogrifier from 'webpack-octoblu-device-schema-transmogrifier';
-import ConfigureSchemaContainer from '../ConfigureSchemaContainer';
+import OctobluDeviceSchemaTransmogrifier from 'webpack-octoblu-device-schema-transmogrifier'
+import ConfigureSchemaContainer from '../ConfigureSchemaContainer'
 
 const propTypes = {
   device: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   selected: PropTypes.string,
   selectableDevices: PropTypes.array,
-};
+}
 
 const defaultProps = {
   onSubmit: _.noop,
-};
+}
 
 class DeviceConfigureSchemaContainer extends Component {
   render() {
-    const { device, onSubmit, selected, selectableDevices } = this.props;
-    const transmogrified = new OctobluDeviceSchemaTransmogrifier(device).transmogrify();
+    const { device, onSubmit, selected, selectableDevices } = this.props
+    const transmogrified = new OctobluDeviceSchemaTransmogrifier(device).transmogrify()
 
-    if(_.isEmpty(_.get(transmogrified, 'schemas.configure'))) {
-      return <h3>Device does not contain a configure schema.</h3>;
+    if (_.isEmpty(_.get(transmogrified, 'schemas.configure'))) {
+      return <h3>Device does not contain a configure schema.</h3>
     }
 
     return (
@@ -31,12 +31,12 @@ class DeviceConfigureSchemaContainer extends Component {
         selectableDevices={selectableDevices}
         onSubmit={onSubmit}
         selected={selected}
-        />
-    );
+      />
+    )
   }
 }
 
-DeviceConfigureSchemaContainer.defaultProps = defaultProps;
-DeviceConfigureSchemaContainer.propTypes = propTypes;
+DeviceConfigureSchemaContainer.defaultProps = defaultProps
+DeviceConfigureSchemaContainer.propTypes = propTypes
 
-export default DeviceConfigureSchemaContainer;
+export default DeviceConfigureSchemaContainer

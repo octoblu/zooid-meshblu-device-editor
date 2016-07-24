@@ -1,23 +1,21 @@
-import chai, { expect } from 'chai';
-import _ from 'lodash';
-import chaiEnzyme from 'chai-enzyme';
-import React from 'react';
-import { shallow } from 'enzyme';
+import chai, { expect } from 'chai'
+import chaiEnzyme from 'chai-enzyme'
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import DeviceMessageSchemaContainer from './';
-import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
+import DeviceMessageSchemaContainer from './'
+import fakeMeshbluDevice from '../../test/fake-meshblu-device.json'
 
-chai.use(chaiEnzyme());
+chai.use(chaiEnzyme())
 
 describe('<DeviceMessageSchemaContainer />', () => {
-  let sut;
+  let sut
 
   beforeEach(() => {
-    sut = shallow(<DeviceMessageSchemaContainer device={fakeMeshbluDevice} />);
-  });
+    sut = shallow(<DeviceMessageSchemaContainer device={fakeMeshbluDevice} />)
+  })
 
   it('should exist', () => {
-    expect(sut).to.be.present();
-  });
-
-});
+    expect(sut).to.be.present()
+  })
+})

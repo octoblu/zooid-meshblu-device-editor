@@ -1,8 +1,8 @@
-import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
+import _ from 'lodash'
+import React, { Component, PropTypes } from 'react'
 
-import SchemaContainer from '../SchemaContainer';
-import SchemaSelector from '../SchemaSelector';
+import SchemaContainer from '../SchemaContainer'
+import SchemaSelector from '../SchemaSelector'
 
 const propTypes = {
   device: PropTypes.object,
@@ -12,25 +12,25 @@ const propTypes = {
   }),
   onSubmit: PropTypes.func.isRequired,
   selectableDevices: PropTypes.array,
-};
+}
 
 const defaultProps = {
   device: {},
   schemas: {},
   onSubmit: _.noop,
-};
+}
 
 class ConfigureSchemaContainer extends Component {
   constructor(props) {
-    super(props);
-    this.state = { selected: null };
-    this.handleChange = this.handleChange.bind(this);
+    super(props)
+    this.state = { selected: null }
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentWillMount() {
-    const { schemas, selected } = this.props;
-    if(selected) {
-      this.setState({ selected });
+    const { schemas, selected } = this.props
+    if (selected) {
+      this.setState({ selected })
       return
     }
     const firstSchemaKey = _.head(_.keys(schemas.configure))
@@ -39,24 +39,24 @@ class ConfigureSchemaContainer extends Component {
 
   componentWillReceiveProps(newProps) {
     const { selected } = newProps
-    if(selected) {
-      this.setState({ selected });
+    if (selected) {
+      this.setState({ selected })
     }
   }
 
   handleChange(selected) {
-    this.setState({ selected });
+    this.setState({ selected })
   }
 
   render() {
-    const { device, selectableDevices, schemas, onSubmit } = this.props;
-    const { selected } = this.state;
+    const { device, selectableDevices, schemas, onSubmit } = this.props
+    const { selected } = this.state
 
-    const schemaConfigure = schemas.configure;
-    let selectedSchema = {};
+    const schemaConfigure = schemas.configure
+    let selectedSchema = {}
 
-    if(selected && schemaConfigure[selected]) {
-      selectedSchema = schemaConfigure[selected];
+    if (selected && schemaConfigure[selected]) {
+      selectedSchema = schemaConfigure[selected]
     }
 
     const wrappedOnSubmit = (properties) => {
@@ -65,14 +65,24 @@ class ConfigureSchemaContainer extends Component {
 
     return (
       <div>
-        <SchemaSelector schemas={schemaConfigure} selected={selected} selectableDevices={selectableDevices} onChange={this.handleChange} />
-        <SchemaContainer schema={selectedSchema} model={device} selectableDevices={selectableDevices} onSubmit={wrappedOnSubmit} />
+        <SchemaSelector
+          schemas={schemaConfigure}
+          selected={selected}
+          selectableDevices={selectableDevices}
+          onChange={this.handleChange}
+        />
+        <SchemaContainer
+          schema={selectedSchema}
+          model={device}
+          selectableDevices={selectableDevices}
+          onSubmit={wrappedOnSubmit}
+        />
       </div>
-    );
+    )
   }
 }
 
-ConfigureSchemaContainer.defaultProps = defaultProps;
-ConfigureSchemaContainer.propTypes = propTypes;
+ConfigureSchemaContainer.defaultProps = defaultProps
+ConfigureSchemaContainer.propTypes = propTypes
 
-export default ConfigureSchemaContainer;
+export default ConfigureSchemaContainer

@@ -1,8 +1,8 @@
-import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
+import _ from 'lodash'
+import React, { Component, PropTypes } from 'react'
 
-import SchemaContainer from '../SchemaContainer';
-import SchemaSelector from '../SchemaSelector';
+import SchemaContainer from '../SchemaContainer'
+import SchemaSelector from '../SchemaSelector'
 
 const propTypes = {
   message: PropTypes.object,
@@ -12,25 +12,25 @@ const propTypes = {
   }),
   onSubmit: PropTypes.func.isRequired,
   selectableDevices: PropTypes.array,
-};
+}
 
 const defaultProps = {
   message: {},
   schemas: {},
   onSubmit: _.noop,
-};
+}
 
 class MessageSchemaContainer extends Component {
   constructor(props) {
-    super(props);
-    this.state = { selected: null };
-    this.handleChange = this.handleChange.bind(this);
+    super(props)
+    this.state = { selected: null }
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentWillMount() {
-    const { schemas, selected } = this.props;
-    if(selected) {
-      this.setState({ selected });
+    const { schemas, selected } = this.props
+    if (selected) {
+      this.setState({ selected })
       return
     }
     const firstSchemaKey = _.head(_.keys(schemas.message))
@@ -39,24 +39,24 @@ class MessageSchemaContainer extends Component {
 
   componentWillReceiveProps(newProps) {
     const { selected } = newProps
-    if(selected) {
-      this.setState({ selected });
+    if (selected) {
+      this.setState({ selected })
     }
   }
 
   handleChange(selected) {
-    this.setState({ selected });
+    this.setState({ selected })
   }
 
   render() {
-    const { message, schemas, onSubmit, selectableDevices } = this.props;
-    const { selected } = this.state;
+    const { schemas, onSubmit, selectableDevices } = this.props
+    const { selected } = this.state
 
-    const schemaMessage = schemas.message;
-    let selectedSchema = {};
+    const schemaMessage = schemas.message
+    let selectedSchema = {}
 
-    if(selected && schemaMessage[selected]) {
-      selectedSchema = schemaMessage[selected];
+    if (selected && schemaMessage[selected]) {
+      selectedSchema = schemaMessage[selected]
     }
 
     const wrappedOnSubmit = (message) => {
@@ -68,11 +68,11 @@ class MessageSchemaContainer extends Component {
         <SchemaSelector schemas={schemaMessage} selectableDevices={selectableDevices} selected={selected} onChange={this.handleChange} />
         <SchemaContainer schema={selectedSchema} selectableDevices={selectableDevices} onSubmit={wrappedOnSubmit} />
       </div>
-    );
+    )
   }
 }
 
-MessageSchemaContainer.defaultProps = defaultProps;
-MessageSchemaContainer.propTypes = propTypes;
+MessageSchemaContainer.defaultProps = defaultProps
+MessageSchemaContainer.propTypes = propTypes
 
-export default MessageSchemaContainer;
+export default MessageSchemaContainer

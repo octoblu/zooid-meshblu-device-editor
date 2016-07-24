@@ -1,23 +1,23 @@
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
-import React from 'react';
-import { shallow } from 'enzyme';
+import chai, { expect } from 'chai'
+import chaiEnzyme from 'chai-enzyme'
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import ConfigureSchemaContainer from './';
-import fakeMeshbluDevice from '../../test/fake-meshblu-device.json';
+import ConfigureSchemaContainer from './'
+import fakeMeshbluDevice from '../../test/fake-meshblu-device.json'
 
-chai.use(chaiEnzyme());
+chai.use(chaiEnzyme())
 
 describe('<ConfigureSchemaContainer />', () => {
-  let sut;
+  let sut
 
   describe('When given schemas as prop', () => {
     beforeEach(() => {
-      sut = shallow(<ConfigureSchemaContainer schemas={fakeMeshbluDevice.schemas} />);
-    });
+      sut = shallow(<ConfigureSchemaContainer schemas={fakeMeshbluDevice.schemas} />)
+    })
 
     it('should set the selected schema to the first configure option', () => {
-      expect(sut.state('selected')).to.deep.equal('my-default-config');
-    });
-  });
-});
+      expect(sut.state('selected')).to.deep.equal('my-default-config')
+    })
+  })
+})

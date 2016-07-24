@@ -28,6 +28,11 @@
             }
           }
         }
+      },
+      "my-empty-config": {
+        "x-form-schema": {
+          "angular": "configure.my-empty-config.angular"
+        }
       }
     },
     "message": {

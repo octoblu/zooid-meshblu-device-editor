@@ -1,15 +1,15 @@
-import _ from 'lodash';
-import React, { PropTypes } from 'react';
-import ReactSchemaForm from 'react-jsonschema-form';
+import _ from 'lodash'
+import React, { PropTypes } from 'react'
+import ReactSchemaForm from 'react-jsonschema-form'
 import MeshbluDevicePicker from 'zooid-meshblu-device-picker'
-import TextWidget from 'react-jsonschema-form/lib/components/widgets/TextWidget'
+// import TextWidget from 'react-jsonschema-form/lib/components/widgets/TextWidget'
 
 const propTypes = {
   model: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   selectableDevices: PropTypes.array,
-};
+}
 
 const defaultProps = {
   model: {},
@@ -17,20 +17,25 @@ const defaultProps = {
   onSubmit: _.noop,
 }
 
+function isSchemaEmpty(_schema) {
+  const schema = _.clone(_schema)
+  delete schema['x-form-schema']
+  return _.isEmpty(schema)
+}
+
 const SchemaContainer = ({ model, schema, onSubmit, selectableDevices }) => {
   const handleSubmit = (form) => {
-    const { formData, idSchema } = form;
-    const filteredFormData = _.pick(formData, _.keys(idSchema));
-    onSubmit(filteredFormData);
-  };
-
-  if (!schema) {
-    return <h3>Missing Schema</h3>
+    const { formData, idSchema } = form
+    const filteredFormData = _.pick(formData, _.keys(idSchema))
+    onSubmit(filteredFormData)
   }
 
-  const MeshbluDeviceWidget = ({id, value, required, onChange, schema}) => {
+  if (isSchemaEmpty(schema)) {
+    return null
+  }
 
-    if(schema['x-meshblu-device-filter']) {
+  const MeshbluDeviceWidget = ({ onChange, schema }) => {
+    if (schema['x-meshblu-device-filter']) {
       selectableDevices = _.filter(selectableDevices, schema['x-meshblu-device-filter'])
     }
 
@@ -54,7 +59,6 @@ const SchemaContainer = ({ model, schema, onSubmit, selectableDevices }) => {
     'meshblu-device': MeshbluDeviceWidget,
   }
 
-
   return (
     <div className="SchemaForm">
       <ReactSchemaForm
@@ -64,10 +68,10 @@ const SchemaContainer = ({ model, schema, onSubmit, selectableDevices }) => {
         widgets={widgets}
       />
     </div>
-  );
-};
+  )
+}
 
-SchemaContainer.propTypes    = propTypes;
-SchemaContainer.defaultProps = defaultProps;
+SchemaContainer.propTypes    = propTypes
+SchemaContainer.defaultProps = defaultProps
 
-export default SchemaContainer;
+export default SchemaContainer

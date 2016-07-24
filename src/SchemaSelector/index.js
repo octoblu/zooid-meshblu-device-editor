@@ -1,43 +1,43 @@
-import _ from 'lodash';
-import React, { PropTypes } from 'react';
-import Select from 'react-select-plus';
+import _ from 'lodash'
+import React, { PropTypes } from 'react'
+import Select from 'react-select-plus'
 
 const propTypes = {
   schemas: PropTypes.object.isRequired,
   selected: PropTypes.string,
   onChange: PropTypes.func,
-};
+}
 
 const defaultProps = {
   onChange: _.noop,
-};
+}
 
 const SchemaSelector = ({ schemas, selected, onChange }) => {
   const keys = _.keys(schemas)
-  if(_.size(keys) < 2) {
+  if (_.size(keys) < 2) {
     return null
   }
-  let groups = {
-    '': {}
+  const groups = {
+    '': {},
   }
   _.each(schemas, (schema, schemaKey) => {
-    if(schema == null) {
+    if (schema == null) {
       return
     }
     const groupName = schema['x-group-name'] || ''
     groups[groupName] = groups[groupName] || {}
     groups[groupName][schemaKey] = schema
   })
-  let groupedOptions = [];
+  let groupedOptions = []
   _.each(groups, (group, groupName) => {
-    const options = _.map(group, (schema, value) => {
+    const options = _.map(group, (schema = {}, value = '') => {
       const label = schema.title || value
-      return { label, value: value }
-    });
+      return { label, value }
+    })
     groupedOptions.push({ label: groupName, options })
-  });
+  })
 
-  const wrappedOnChange = ({ value }) => {
+  function wrappedOnChange({ value } = {}) {
     onChange(value)
   }
 
@@ -50,12 +50,13 @@ const SchemaSelector = ({ schemas, selected, onChange }) => {
         options={groupedOptions}
         value={selected}
         clearable={false}
-        onChange={wrappedOnChange} />
+        onChange={wrappedOnChange}
+      />
     </div>
-  );
-};
+  )
+}
 
-SchemaSelector.propTypes    = propTypes;
-SchemaSelector.defaultProps = defaultProps;
+SchemaSelector.propTypes    = propTypes
+SchemaSelector.defaultProps = defaultProps
 
-export default SchemaSelector;
+export default SchemaSelector
