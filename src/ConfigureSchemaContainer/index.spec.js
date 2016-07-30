@@ -16,8 +16,8 @@ describe('<ConfigureSchemaContainer />', () => {
       sut = shallow(<ConfigureSchemaContainer schemas={fakeMeshbluDevice.schemas} />)
     })
 
-    it('should set the selected schema to the first configure option', () => {
-      expect(sut.state('selected')).to.deep.equal('my-default-config')
+    it('should be present', () => {
+      expect(sut).to.be.present()
     })
   })
 })
