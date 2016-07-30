@@ -11,6 +11,7 @@ const propTypes = {
     configure: PropTypes.object.isRequired,
   }),
   onSubmit: PropTypes.func.isRequired,
+  onSelect: PropTypes.func,
   selectableDevices: PropTypes.array,
 }
 
@@ -18,39 +19,26 @@ const defaultProps = {
   device: {},
   schemas: {},
   onSubmit: _.noop,
+  onSelect: _.noop
 }
 
 class ConfigureSchemaContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = { selected: null }
     this.handleChange = this.handleChange.bind(this)
   }
 
   componentWillMount() {
     const { schemas, selected } = this.props
-    if (selected) {
-      this.setState({ selected })
-      return
-    }
-    const firstSchemaKey = _.head(_.keys(schemas.configure))
-    this.setState({ selected: firstSchemaKey })
-  }
-
-  componentWillReceiveProps(newProps) {
-    const { selected } = newProps
-    if (selected) {
-      this.setState({ selected })
-    }
   }
 
   handleChange(selected) {
-    this.setState({ selected })
+    const { onSelect } = this.props
+    onSelect({ selected })
   }
 
   render() {
-    const { device, selectableDevices, schemas, onSubmit } = this.props
-    const { selected } = this.state
+    const { device, selectableDevices, schemas, onSubmit, selected } = this.props
 
     const schemaConfigure = schemas.configure
     let selectedSchema = {}

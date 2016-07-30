@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
 import ReactTabs from 'react-tabs';
+import JsonSchemaDefaults from 'json-schema-defaults'
 
 import {
   DeviceConfigureSchemaContainer,
@@ -11,6 +12,7 @@ import {
 } from '../src/index';
 
 import ExampleDevice from '../test/fake-meshblu-device.json';
+import ExampleDeviceOverwriteDefaults from '../test/fake-meshblu-device-overwrite-defaults.json';
 import ExampleDeviceWithDeviceField from '../test/fake-device-with-device-field.json';
 import OldDevice from '../test/fake-old-meshblu-device.json';
 
@@ -26,6 +28,7 @@ class Example extends Component {
 
     this.handleConfig  = this.handleConfig.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentWillMount() {
@@ -47,8 +50,21 @@ class Example extends Component {
     console.log('message', { message, selected });
   }
 
+  handleSelect({ selected }) {
+    const device = ExampleDevice;
+    const overwriteDevice = ExampleDeviceOverwriteDefaults
+    if(confirm('This will overwrite your data using the schema defaults. Are you sure you want to continue?')) {
+      const schema = overwriteDevice.schemas.configure[selected]
+      const defaults = JsonSchemaDefaults(schema)
+      overwriteDevice.options.example = defaults.options.example
+      this.setState({ device, selected });
+    } else {
+      this.setState({ selected: this.state.selected })
+    }
+  }
+
   render() {
-    const { device, oldDevice, emptySchemaDevice } = this.state;
+    const { device, oldDevice, emptySchemaDevice, selected } = this.state;
 
     if (!device) return <h1>Loading</h1>;
 
@@ -59,6 +75,7 @@ class Example extends Component {
         <TabList>
           <Tab>Configuration Transmogrified</Tab>
           <Tab>Configuration</Tab>
+          <Tab>Configuration Overwrite Defaults</Tab>
           <Tab>Configuration Old Device</Tab>
           <Tab>Configuration With a Device field</Tab>
           <Tab>Configuration With a Device field and no devices</Tab>
@@ -81,8 +98,18 @@ class Example extends Component {
 
         <TabPanel>
           <ConfigureSchemaContainer
+            device={device}
             schemas={device.schemas}
             onSubmit={this.handleConfig}
+          />
+        </TabPanel>
+
+        <TabPanel>
+          <ConfigureSchemaContainer
+            device={ExampleDeviceOverwriteDefaults}
+            schemas={ExampleDeviceOverwriteDefaults.schemas}
+            onSelect={this.handleSelect}
+            selected={selected || _.head(_.keys(ExampleDeviceOverwriteDefaults.schemas.configure)) || 'default' }
           />
         </TabPanel>
 

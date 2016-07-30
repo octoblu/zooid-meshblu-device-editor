@@ -38,6 +38,7 @@ const SchemaSelector = ({ schemas, selected, onChange }) => {
   })
 
   function wrappedOnChange({ value } = {}) {
+    if (value == selected) return
     onChange(value)
   }
 
