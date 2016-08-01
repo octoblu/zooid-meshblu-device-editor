@@ -7,7 +7,7 @@ import ConfigureSchemaContainer from '../ConfigureSchemaContainer'
 const propTypes = {
   device: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func,
+  onSelect: PropTypes.func,
   selected: PropTypes.string,
   selectableDevices: PropTypes.array,
 }

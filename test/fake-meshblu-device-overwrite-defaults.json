@@ -20,6 +20,7 @@
     },
     "configure": {
       "my-default-config": {
+        "title": "My Default Config",
         "type": "object",
         "properties": {
           "options": {
@@ -34,6 +35,7 @@
         }
       },
       "my-similar-config": {
+        "title": "My Similar Config",
         "type": "object",
         "properties": {
           "options": {
