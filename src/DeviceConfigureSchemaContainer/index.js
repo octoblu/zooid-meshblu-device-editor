@@ -7,17 +7,19 @@ import ConfigureSchemaContainer from '../ConfigureSchemaContainer'
 const propTypes = {
   device: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
   selected: PropTypes.string,
   selectableDevices: PropTypes.array,
 }
 
 const defaultProps = {
   onSubmit: _.noop,
+  onSelect: _.noop
 }
 
 class DeviceConfigureSchemaContainer extends Component {
   render() {
-    const { device, onSubmit, selected, selectableDevices } = this.props
+    const { device, onSubmit, onSelect, selected, selectableDevices } = this.props
     const transmogrified = new OctobluDeviceSchemaTransmogrifier(device).transmogrify()
 
     if (_.isEmpty(_.get(transmogrified, 'schemas.configure'))) {
@@ -30,6 +32,7 @@ class DeviceConfigureSchemaContainer extends Component {
         schemas={transmogrified.schemas}
         selectableDevices={selectableDevices}
         onSubmit={onSubmit}
+        onSelect={onSelect}
         selected={selected}
       />
     )
