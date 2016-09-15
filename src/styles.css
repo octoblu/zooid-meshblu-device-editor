@@ -28,6 +28,7 @@
   font-family: "citrixsans-regular", sans-serif;
 
   -webkit-appearance: none;
+  box-sizing: border-box;
 }
 
 .form-control--unstyled {

@@ -59,6 +59,10 @@ class MessageSchemaContainer extends Component {
       selectedSchema = schemaMessage[selected]
     }
 
+    if (_.isEmpty(selectedSchema)) {
+      selectedSchema = _.first(_.values(schemaMessage))
+    }
+
     const wrappedOnSubmit = (message) => {
       onSubmit({ message, selected })
     }

@@ -23,28 +23,27 @@ const defaultProps = {
 }
 
 class ConfigureSchemaContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
-  }
 
   componentWillMount() {
     const { schemas, selected } = this.props
   }
 
-  handleChange(selected) {
+  handleChange = (selected) => {
     const { onSelect } = this.props
     onSelect({ selected })
   }
 
   render() {
     const { device, selectableDevices, schemas, onSubmit, selected } = this.props
-
     const schemaConfigure = schemas.configure
     let selectedSchema = {}
 
     if (selected && schemaConfigure[selected]) {
       selectedSchema = schemaConfigure[selected]
+    }
+
+    if(_.isEmpty(selectedSchema)){
+      selectedSchema = _.first(_.values(schemaConfigure))
     }
 
     const wrappedOnSubmit = (properties) => {
