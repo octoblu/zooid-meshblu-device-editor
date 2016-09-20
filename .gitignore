@@ -37,3 +37,4 @@ node_modules
 
 dist
 example/bundle.js
+.nyc_output
