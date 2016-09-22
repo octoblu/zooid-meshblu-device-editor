@@ -35,21 +35,22 @@ const SchemaContainer = ({ model, schema, onSubmit, selectableDevices }) => {
   }
 
   const MeshbluDeviceWidget = ({ onChange, schema, id, value, required }) => {
+    let mySelectableDevices = _.clone(selectableDevices)
     if (schema['x-meshblu-device-filter']) {
-      selectableDevices = _.filter(selectableDevices, schema['x-meshblu-device-filter'])
+      mySelectableDevices = _.filter(mySelectableDevices, schema['x-meshblu-device-filter'])
     }
 
     const selectDevice = (device) => {
       onChange(device.uuid)
     }
 
-    if (_.isEmpty(selectableDevices)) {
+    if (_.isEmpty(mySelectableDevices)) {
       return <TextWidget id={id} value={value} required={required} onChange={onChange} schema={schema} />
     }
 
     return (
       <MeshbluDevicePicker
-        devices={selectableDevices}
+        devices={mySelectableDevices}
         onSelection={selectDevice}
       />
     )
